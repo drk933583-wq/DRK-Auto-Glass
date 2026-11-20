@@ -31,7 +31,7 @@ export function vehicleStep(box, state) {
   const genSel = h('select', { 'aria-label': 'الجيل', disabled: true });
   const yearBox = h('div', {});
   const varSel = h('select', { 'aria-label': 'الفئة' });
-  const varWrap = field('الفئة / التجهيز ', varSel); varWrap.hidden = true;
+  const varWrap = field('الفئة / التجهيز (اختياري)', varSel); varWrap.hidden = true;
   let gens = [];
   const fail = (e, t) => { console.error(e); msg.textContent = t; };
 
@@ -83,61 +83,26 @@ export function vehicleStep(box, state) {
   const mb = h('input', { type: 'text', value: v.mbrand || '', maxlength: 60 }), mm = h('input', { type: 'text', value: v.mmodel || '', maxlength: 60 }),
     my = h('input', { type: 'number', min: 1950, max: thisYear + 1, value: v.myear || '' });
   mb.addEventListener('input', () => { v.mbrand = mb.value; }); mm.addEventListener('input', () => { v.mmodel = mm.value; }); my.addEventListener('input', () => { v.myear = my.value; });
-  const manual = h('div', { class: 'wz-grid' }, field('ماركة السيارة', mb), field('الموديل', mm), field('سنة الصنع ', my),
+  const manual = h('div', { class: 'wz-grid' }, field('ماركة السيارة', mb), field('الموديل', mm), field('سنة الصنع (اختياري)', my),
     h('p', { class: 'wz-note' }, 'سيتواصل معك فريق المبيعات للتحقق من التوافق يدويًا.'));
   const chk = h('input', { type: 'checkbox', id: 'wz-manual', checked: !!v.manual });
   const toggle = () => { auto.hidden = chk.checked; manual.hidden = !chk.checked; v.manual = chk.checked; };
   chk.addEventListener('change', toggle);
-  const vin = h('input', { type: 'text', value: state.vin || '', maxlength: 40, dir: 'ltr', placeholder: '' });
+  const vin = h('input', { type: 'text', value: state.vin || '', maxlength: 40, dir: 'ltr', placeholder: 'اختياري' });
   vin.addEventListener('input', () => { state.vin = vin.value.trim(); });
 
   box.replaceChildren(h('h3', {}, 'اختر سيارتك'), auto, manual,
     h('div', { class: 'wz-check' }, chk, h('label', { for: 'wz-manual' }, 'لم أجد سيارتي في القائمة (طلب تحقق يدوي)')),
-    field('رقم الشاسيه VIN ', vin), msg);
+    field('رقم الشاسيه VIN (اختياري)', vin), msg);
   toggle(); renderYear(); refreshBrands(); if (v.brand) { refreshModels(); if (v.model) { refreshGens().then(refreshVariants); } }
 
-  return {
-  validate() {
-    if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) {
-      return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
-    }
-
-    const year = v.manual ? v.myear : v.year;
-
-    if (year && !/^\d{4}$/.test(String(year))) {
-      return 'سنة الصنع غير صحيحة.';
-    }
-
-   
-  return {
-    validate() {
-      if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) {
-        return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
-      }
-
-      const year = v.manual ? v.myear : v.year;
-
-      if (year && !/^\d{4}$/.test(String(year))) {
-        return 'سنة الصنع غير صحيحة.';
-      }
-
-      if (year && (Number(year) < 1950 || Number(year) > thisYear + 1)) {
-        return 'سنة الصنع غير صحيحة.';
-      }
-
-      if (!v.manual && v.generation && year) {
-        const g = v.generation;
-        const y = Number(year);
-
-        if (
-          (g.start != null && y < g.start) ||
-          (g.end != null && y > g.end)
-        ) {
-          return 'السنة خارج نطاق الجيل المختار.';
-        }
-      }
-
-      return null;
-    }
-  };
+  return { validate() {
+    if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
+    if (v.manual) {
+      if ((v.mbrand || '').trim().length < 2 || (v.mmodel || '').trim().length < 2) return 'اكتب ماركة وموديل السيارة.';
+      if (v.myear && !/^\d{4}$/.test(v.myear)) return 'سنة الصنع غير صحيحة.'; return null; }
+    if (!v.brand) return 'اختر الماركة.'; if (!v.model) return 'اختر الموديل.'; if (!v.generation) return 'اختر الجيل.';
+    const y = Number(v.year); if (!y || y < 1950 || y > thisYear + 1) return 'اختر سنة الصنع.';
+    const g = v.generation; if ((g.start != null && y < g.start) || (g.end != null && y > g.end)) return 'السنة خارج نطاق الجيل المختار.';
+    return null; } };
 }
