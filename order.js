@@ -60,16 +60,8 @@ function customerStep(box, state) {
 /** Human-readable summary used by the review step (and later by the WhatsApp message). */
 export function summaryRows(state, cat) {
   const v = state.vehicle, rows = [];
-  const vehicleSummary = v.manual
-  ? [v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' / ') || 'لم تُحدّد'
-  : [v.brand?.label, v.model?.label, v.generation?.label, v.year, v.variant?.label]
-      .filter(Boolean).join(' / ') || 'لم تُحدّد';
-
-rows.push([
-  'السيارة',
-  vehicleSummary + (v.manual ? ' (تحقق يدوي)' : ''),
-  0
-]);
+  rows.push(['السيارة', v.manual ? `${v.mbrand} ${v.mmodel}${v.myear ? ' ' + v.myear : ''} (تحقق يدوي)`
+    : [v.brand?.label, v.model?.label, v.generation?.label, v.year, v.variant?.label].filter(Boolean).join(' / '), 0]);
   if (state.vin) rows.push(['رقم الشاسيه', state.vin, 0]);
   const specs = cat.specs.filter(s => s.code !== 'origin').map(s => `${specLabel(s)}: ${state.specs[s.code] ? label(state.specs[s.code]) : 'لم يُحدَّد'}`);
   rows.push(['المواصفات', specs.length ? specs : 'لا توجد', 1]);
@@ -146,20 +138,8 @@ export function buildPayload(state, cat, uploadPath) {
   for (const sp of cat.specs) if (sp.code !== 'origin' && state.specs[sp.code]) specs[sp.code] = { label: specLabel(sp), value: state.specs[sp.code] };
   const other = cat.positions.find(p => p.code === 'other');
   return {
-    vehicle: v.manual
-  ? {
-      manual: true,
-      manual_text: [v.mbrand, v.mmodel].filter(Boolean).join(' ').trim() || null,
-      year: v.myear ? Number(v.myear) : null
-    }
-  : {
-      manual: false,
-      brand_id: v.brand?.id || null,
-      model_id: v.model?.id || null,
-      generation_id: v.generation?.id || null,
-      variant_id: v.variant?.id || null,
-      year: v.year ? Number(v.year) : null
-    },
+    vehicle: v.manual ? { manual: true, manual_text: [v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' ').trim(), year: v.myear ? Number(v.myear) : null }
+      : { manual: false, brand_id: v.brand.id, model_id: v.model.id, generation_id: v.generation.id, variant_id: v.variant?.id || null, year: Number(v.year) },
     specs, origin_preference: state.origin || null, service_method: s.method,
     branch_id: s.method === 'branch' ? s.branch_id : null, address: s.method === 'mobile' ? s.address.trim() : (c.address || '').trim() || null,
     customer: { name: c.name.trim(), phone: cleanPhone(c.phone), phone2: c.phone2 ? cleanPhone(c.phone2) : null, vin: state.vin || null, notes: (c.notes || '').trim() || null },
