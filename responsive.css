@@ -1,38 +1,37 @@
-/* css/responsive.css (v2) */
-@media (max-width: 1000px) {
-  .glass-picker { grid-template-columns: 1fr; }
-}
-
+/* css/responsive.css (v3) */
 @media (max-width: 900px) {
   .steps { grid-template-columns: repeat(2, 1fr); }
+  .wz-glass { grid-template-columns: 1fr; }
+  .wz-diagram { position: static; }
+  .wz-car { max-width: 210px; }
 }
 
 @media (max-width: 720px) {
   .site-header { flex-direction: column; align-items: stretch; gap: .35rem; padding-block: .55rem; }
-  .brand { text-align: center; }
+  .brand { justify-content: center; }
 
   .hero { grid-template-columns: 1fr; text-align: center; gap: 1.4rem; min-height: 0; }
   .hero p { margin-inline: auto; }
   .hero__logo { order: -1; width: min(58%, 220px); }
   .hero .btn { width: 100%; }
 
-  .wizard { border-radius: var(--radius); }
-  /* شريط الأزرار يثبت أسفل الشاشة في الموبايل */
-  .wizard__actions, .wizard-actions {
-    position: sticky; bottom: 0; z-index: 5; margin-inline: calc(-1 * clamp(1.1rem, 3vw, 2.2rem));
-    padding: .8rem clamp(1.1rem, 3vw, 2.2rem) calc(.8rem + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-    border-top: 1px solid var(--line);
+  .wizard { border-radius: var(--radius); padding: 1rem; }
+  .wz-grid, .wz-branches { grid-template-columns: 1fr; }
+
+  /* أزرار السابق / التالي تثبت أسفل الشاشة */
+  .wz-nav {
+    position: sticky; bottom: 0; z-index: 5; margin-inline: -1rem; margin-bottom: -1rem; padding: .8rem 1rem calc(.8rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
   }
-  .wizard__actions .btn, .wizard-actions .btn { flex: 1; }
+  .wz-nav .btn { flex: 1; }
 
   .site-footer { flex-direction: column; text-align: center; }
 }
 
 @media (max-width: 480px) {
   .steps { grid-template-columns: 1fr; }
-  .options, .wizard .options { grid-template-columns: 1fr 1fr; }
-  .glass-cards { grid-template-columns: 1fr 1fr; }
-  .chip > span, button.chip { min-height: 46px; }
-  #brands-grid:not(.muted) { grid-template-columns: repeat(3, 1fr); }
+  .wz-poslist { grid-template-columns: 1fr 1fr; }
+  .wz-pos { flex-wrap: wrap; padding: .6rem .7rem; font-size: .92rem; }
+  .brand-grid { grid-template-columns: repeat(3, 1fr); }
+  .wz-toolbar > span { margin-inline-start: 0; width: 100%; text-align: center; }
 }
