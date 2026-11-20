@@ -31,7 +31,7 @@ export function vehicleStep(box, state) {
   const genSel = h('select', { 'aria-label': 'الجيل', disabled: true });
   const yearBox = h('div', {});
   const varSel = h('select', { 'aria-label': 'الفئة' });
-  const varWrap = field('الفئة / التجهيز (اختياري)', varSel); varWrap.hidden = true;
+  const varWrap = field('الفئة / التجهيز ', varSel); varWrap.hidden = true;
   let gens = [];
   const fail = (e, t) => { console.error(e); msg.textContent = t; };
 
@@ -83,17 +83,17 @@ export function vehicleStep(box, state) {
   const mb = h('input', { type: 'text', value: v.mbrand || '', maxlength: 60 }), mm = h('input', { type: 'text', value: v.mmodel || '', maxlength: 60 }),
     my = h('input', { type: 'number', min: 1950, max: thisYear + 1, value: v.myear || '' });
   mb.addEventListener('input', () => { v.mbrand = mb.value; }); mm.addEventListener('input', () => { v.mmodel = mm.value; }); my.addEventListener('input', () => { v.myear = my.value; });
-  const manual = h('div', { class: 'wz-grid' }, field('ماركة السيارة', mb), field('الموديل', mm), field('سنة الصنع (اختياري)', my),
+  const manual = h('div', { class: 'wz-grid' }, field('ماركة السيارة', mb), field('الموديل', mm), field('سنة الصنع ', my),
     h('p', { class: 'wz-note' }, 'سيتواصل معك فريق المبيعات للتحقق من التوافق يدويًا.'));
   const chk = h('input', { type: 'checkbox', id: 'wz-manual', checked: !!v.manual });
   const toggle = () => { auto.hidden = chk.checked; manual.hidden = !chk.checked; v.manual = chk.checked; };
   chk.addEventListener('change', toggle);
-  const vin = h('input', { type: 'text', value: state.vin || '', maxlength: 40, dir: 'ltr', placeholder: 'اختياري' });
+  const vin = h('input', { type: 'text', value: state.vin || '', maxlength: 40, dir: 'ltr', placeholder: '' });
   vin.addEventListener('input', () => { state.vin = vin.value.trim(); });
 
   box.replaceChildren(h('h3', {}, 'اختر سيارتك'), auto, manual,
     h('div', { class: 'wz-check' }, chk, h('label', { for: 'wz-manual' }, 'لم أجد سيارتي في القائمة (طلب تحقق يدوي)')),
-    field('رقم الشاسيه VIN (اختياري)', vin), msg);
+    field('رقم الشاسيه VIN ', vin), msg);
   toggle(); renderYear(); refreshBrands(); if (v.brand) { refreshModels(); if (v.model) { refreshGens().then(refreshVariants); } }
 
   return { validate() {
