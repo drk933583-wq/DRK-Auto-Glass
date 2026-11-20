@@ -1,43 +1,42 @@
 
-/* =========================================
+/* ==================================================
    DR/KHALED AUTO GLASS
-   Premium Automotive Design System
-========================================= */
+   Corporate Website — Main Design System
+================================================== */
 
 :root {
-  --navy-950: #061329;
-  --navy-900: #0A1B35;
-  --navy-800: #102B50;
-  --navy-700: #183E69;
-
+  --navy: #07152C;
+  --navy-2: #0B2040;
+  --navy-3: #122E54;
   --blue: #1769E8;
-  --blue-light: #438BFA;
-  --cyan: #4FB3BF;
+  --blue-hover: #3985F5;
+  --cyan: #54C4D0;
 
   --white: #FFFFFF;
-  --surface: #F5F8FC;
-  --surface-2: #EDF2F8;
+  --page: #F7F9FC;
+  --surface: #FFFFFF;
+  --surface-dark: #0D203C;
 
-  --text: #17263B;
-  --muted: #6D7D91;
-  --border: #E1E8F0;
+  --text: #15243A;
+  --muted: #718096;
+  --light-text: #C5D1E0;
+  --border: #E5EAF1;
 
   --success: #15966A;
   --danger: #C0392B;
   --warn: #B7791F;
 
-  --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 24px;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
 
-  --shadow-sm: 0 4px 14px rgba(7, 19, 42, .05);
-  --shadow: 0 12px 32px rgba(7, 19, 42, .08);
-  --shadow-lg: 0 24px 60px rgba(7, 19, 42, .14);
+  --shadow-sm: 0 5px 18px rgba(7,21,44,.05);
+  --shadow: 0 14px 38px rgba(7,21,44,.09);
+  --shadow-lg: 0 25px 65px rgba(7,21,44,.15);
 
   --font: 'IBM Plex Sans Arabic', system-ui, sans-serif;
 }
-
-/* Reset */
 
 * {
   box-sizing: border-box;
@@ -52,8 +51,8 @@ html {
 body {
   font-family: var(--font);
   color: var(--text);
-  background: var(--surface);
-  line-height: 1.8;
+  background: var(--page);
+  line-height: 1.85;
   overflow-x: hidden;
 }
 
@@ -69,7 +68,7 @@ button,
 input,
 select,
 textarea {
-  font-family: inherit;
+  font: inherit;
 }
 
 button {
@@ -81,59 +80,64 @@ button {
   outline-offset: 3px;
 }
 
-/* Notifications */
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Announcement / Error Banner ---------- */
 
 .banner {
-  padding: .75rem 1rem;
+  padding: .7rem 1rem;
   text-align: center;
-  background: var(--surface-2);
-  font-weight: 500;
+  background: #E9F1FA;
+  color: var(--navy);
+  font-weight: 600;
 }
 
 .banner--error {
-  background: var(--danger);
   color: white;
+  background: var(--danger);
 }
 
 .banner--warn {
-  background: var(--warn);
   color: white;
+  background: var(--warn);
 }
 
-/* Header */
+/* ---------- Header ---------- */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
 
+  min-height: 78px;
+  padding: .8rem 6%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
 
-  min-height: 76px;
-  padding: .8rem 6vw;
+  color: white;
+  background: rgba(7,21,44,.97);
 
-  background: rgba(6, 19, 41, .96);
-  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 5px 25px rgba(0,0,0,.12);
 
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  box-shadow: 0 5px 24px rgba(0,0,0,.10);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: .65rem;
+  gap: .7rem;
 
   color: white;
   font-size: 1.35rem;
   font-weight: 700;
-  letter-spacing: .03em;
+  letter-spacing: .02em;
   text-decoration: none;
 }
 
@@ -150,45 +154,57 @@ button {
 }
 
 .site-header nav a {
-  color: #CFD9E8;
-  text-decoration: none;
-  font-size: .94rem;
+  position: relative;
+  color: #C8D4E4;
+  font-size: .95rem;
   font-weight: 500;
+  text-decoration: none;
   transition: color .2s ease;
 }
 
-.site-header nav a:hover {
-  color: var(--cyan);
+.site-header nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--cyan);
+  transition: width .25s ease;
 }
 
-/* Hero */
+.site-header nav a:hover {
+  color: white;
+}
+
+.site-header nav a:hover::after {
+  width: 100%;
+}
+
+/* ---------- Hero ---------- */
 
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
 
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  align-items: center;
-  gap: 3rem;
+  min-height: 660px;
+  padding: 5rem 7%;
 
-  min-height: 650px;
-  padding: 5rem 7vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
 
   color: white;
 
   background:
     radial-gradient(
-      ellipse at 15% 30%,
-      rgba(23,105,232,.22),
-      transparent 45%
+      circle at 15% 20%,
+      rgba(23,105,232,.24),
+      transparent 35%
     ),
-    linear-gradient(
-      135deg,
-      var(--navy-950),
-      var(--navy-800)
-    );
+    linear-gradient(125deg, #061329 0%, #0B2040 55%, #102D51 100%);
 }
 
 .hero::before {
@@ -196,17 +212,32 @@ button {
   position: absolute;
   z-index: -1;
 
-  width: 480px;
-  height: 480px;
-  left: -180px;
-  bottom: -260px;
+  width: 550px;
+  height: 550px;
+  left: -240px;
+  bottom: -350px;
 
-  border: 1px solid rgba(79,179,191,.15);
+  border: 1px solid rgba(84,196,208,.16);
   border-radius: 50%;
 
   box-shadow:
-    0 0 0 45px rgba(79,179,191,.025),
-    0 0 0 90px rgba(79,179,191,.02);
+    0 0 0 60px rgba(84,196,208,.025),
+    0 0 0 120px rgba(84,196,208,.018);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 55%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    transparent,
+    rgba(255,255,255,.07),
+    transparent
+  );
 }
 
 .hero__text {
@@ -216,95 +247,70 @@ button {
 }
 
 .hero h1 {
-  font-size: clamp(2.1rem, 4.5vw, 3.8rem);
-  line-height: 1.35;
-  font-weight: 700;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
   color: white;
+
+  font-size: clamp(2.3rem, 4.5vw, 4.1rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -.03em;
 }
 
 .hero p {
-  max-width: 38ch;
-  color: #D1DCEB;
-  white-space: pre-line;
-  font-size: 1.12rem;
-  line-height: 2;
+  max-width: 39ch;
   margin-bottom: 2rem;
+
+  color: #C7D4E5;
+  font-size: 1.12rem;
+  line-height: 2.1;
+  white-space: pre-line;
 }
 
 .hero__logo {
   display: block;
-  position: relative;
-
   width: 100%;
-  max-width: 610px;
+  max-width: 620px;
   height: auto;
 
   justify-self: center;
   object-fit: contain;
 
-  padding: 10px;
-  margin: 0 auto;
-
-  background: linear-gradient(
-    145deg,
-    rgba(255,255,255,.09),
-    rgba(255,255,255,.025)
-  );
-
-  border: 1px solid rgba(79,179,191,.32);
-  border-radius: var(--radius-lg);
+  border-radius: 20px;
 
   box-shadow:
-    0 28px 70px rgba(0,0,0,.38),
-    0 0 45px rgba(23,105,232,.13),
-    inset 0 1px 0 rgba(255,255,255,.12);
+    0 30px 75px rgba(0,0,0,.36),
+    0 0 45px rgba(23,105,232,.16);
 
-  transition:
-    transform .4s ease,
-    box-shadow .4s ease,
-    border-color .4s ease;
-
-  animation: hero-image-enter .8s ease both;
+  animation: hero-enter .85s ease both;
 }
 
-.hero__logo:hover {
-  transform: translateY(-6px);
-  border-color: rgba(79,179,191,.7);
-
-  box-shadow:
-    0 35px 80px rgba(0,0,0,.45),
-    0 0 45px rgba(23,105,232,.22);
-}
-
-@keyframes hero-image-enter {
+@keyframes hero-enter {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(25px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Buttons */
+/* ---------- Buttons ---------- */
 
 .btn {
+  min-height: 52px;
+  padding: .85rem 1.8rem;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: .6rem;
 
-  min-height: 50px;
-  padding: .85rem 1.8rem;
-
   border: 0;
   border-radius: 12px;
 
-  font-size: 1rem;
   font-weight: 700;
+  font-size: 1rem;
 
   transition:
     transform .2s ease,
@@ -314,37 +320,24 @@ button {
 
 .btn--primary {
   color: white;
-
-  background: linear-gradient(
-    135deg,
-    var(--blue),
-    #0E55C5
-  );
-
-  box-shadow: 0 8px 22px rgba(23,105,232,.25);
+  background: linear-gradient(135deg, #2879F2, #1056C5);
+  box-shadow: 0 10px 25px rgba(23,105,232,.25);
 }
 
 .btn--primary:hover {
   transform: translateY(-3px);
-
-  background: linear-gradient(
-    135deg,
-    var(--blue-light),
-    var(--blue)
-  );
-
-  box-shadow: 0 12px 28px rgba(23,105,232,.32);
+  background: linear-gradient(135deg, #438BFA, #1769E8);
+  box-shadow: 0 14px 30px rgba(23,105,232,.34);
 }
 
 .btn--ghost {
-  color: var(--navy-800);
+  color: var(--navy);
   background: white;
   border: 1px solid var(--border);
 }
 
 .btn--ghost:hover {
-  background: var(--surface-2);
-  border-color: #B9C9DD;
+  background: #F0F5FA;
 }
 
 .btn:disabled {
@@ -354,31 +347,30 @@ button {
   box-shadow: none;
 }
 
-/* General Sections */
+/* ---------- Main Sections ---------- */
 
 .section {
-  width: min(100%, 1200px);
+  width: min(100%, 1280px);
   margin-inline: auto;
-  padding: 5rem 6vw;
+  padding: 5.5rem 6%;
 }
 
 .section h2 {
-  position: relative;
-  color: var(--navy-800);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 700;
-  line-height: 1.5;
   margin-bottom: 1.8rem;
+
+  color: var(--navy);
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  line-height: 1.5;
+  font-weight: 700;
 }
 
 .section h2::after {
   content: "";
   display: block;
 
-  width: 55px;
+  width: 58px;
   height: 4px;
-
-  margin-top: .8rem;
+  margin-top: .85rem;
 
   border-radius: 10px;
   background: linear-gradient(90deg, var(--blue), var(--cyan));
@@ -392,75 +384,68 @@ button {
   white-space: pre-line;
 }
 
-/* Steps */
+/* ---------- Steps / Customer Journey ---------- */
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, minmax(0,1fr));
   gap: 1.1rem;
 
-  list-style: none;
   padding: 0;
-
-  counter-reset: steps;
+  list-style: none;
+  counter-reset: journey;
 }
 
 .steps li {
   position: relative;
-  min-height: 125px;
+  min-height: 165px;
+  padding: 1.5rem;
 
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
 
-  padding: 1.4rem 1.2rem;
-  padding-inline-start: 4rem;
-
-  color: var(--navy-800);
+  color: var(--navy);
   font-weight: 600;
 
   background: white;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-
+  border-radius: 18px;
   box-shadow: var(--shadow-sm);
+
+  counter-increment: journey;
   transition: transform .25s ease, box-shadow .25s ease;
-  counter-increment: steps;
 }
 
 .steps li::before {
-  content: counter(steps, decimal-leading-zero);
+  content: "0" counter(journey);
 
   position: absolute;
-  inset-inline-start: 1.1rem;
+  top: 1.2rem;
+  right: 1.4rem;
 
-  display: grid;
-  place-items: center;
-
-  width: 40px;
-  height: 40px;
-
-  color: white;
+  color: var(--blue);
+  font-size: 1.5rem;
   font-weight: 700;
-
-  background: var(--navy-800);
-  border-radius: 12px;
 }
 
 .steps li:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow);
-  border-color: rgba(79,179,191,.5);
 }
 
-/* Wizard Container */
+/* ---------- Vehicle Order Section ---------- */
+
+#wizard {
+  scroll-margin-top: 100px;
+}
 
 .wizard {
   padding: 2rem;
 
   background: white;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-
+  border-radius: 22px;
   box-shadow: var(--shadow);
 }
 
@@ -469,28 +454,22 @@ button {
   flex-wrap: wrap;
   gap: .6rem;
 
-  list-style: none;
   padding: 0;
   margin-bottom: 2rem;
+  list-style: none;
 }
 
 .wz-steps li {
   padding: .45rem 1rem;
-
   color: var(--muted);
-  background: var(--surface-2);
-
-  border: 1px solid transparent;
+  background: #F0F3F8;
   border-radius: 999px;
-
   font-size: .88rem;
-  font-weight: 500;
 }
 
 .wz-steps .is-cur {
   color: white;
   background: var(--navy-800);
-  box-shadow: 0 5px 14px rgba(16,43,80,.2);
 }
 
 .wz-steps .is-done {
@@ -499,14 +478,14 @@ button {
 }
 
 .wz-body h3 {
-  color: var(--navy-800);
-  font-size: 1.25rem;
   margin-bottom: 1rem;
+  color: var(--navy);
+  font-size: 1.3rem;
 }
 
 .wz-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
   gap: 1.2rem;
 }
 
@@ -517,7 +496,7 @@ button {
 }
 
 .wz-field > span {
-  color: var(--navy-800);
+  color: var(--navy);
   font-weight: 600;
 }
 
@@ -528,18 +507,16 @@ button {
 .wizard select,
 .wizard textarea {
   width: 100%;
-  min-height: 48px;
-
-  padding: .7rem .9rem;
+  min-height: 50px;
+  padding: .75rem 1rem;
 
   color: var(--text);
   background: #FBFCFE;
 
-  border: 1px solid #D6E0EB;
+  border: 1px solid #D9E1EC;
   border-radius: 10px;
 
-  font-size: .96rem;
-  transition: border-color .2s ease, box-shadow .2s ease;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 .wizard input:focus,
@@ -547,46 +524,38 @@ button {
 .wizard textarea:focus {
   outline: none;
   border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(23,105,232,.1);
-  background: white;
+  box-shadow: 0 0 0 3px rgba(23,105,232,.11);
 }
 
 .wz-note {
+  margin: .6rem 0;
   color: var(--muted);
   font-size: .9rem;
-  margin: .6rem 0;
 }
 
 .wz-err {
-  color: var(--danger);
   min-height: 1.4em;
   margin: .8rem 0;
-  font-weight: 500;
+  color: var(--danger);
 }
 
 .wz-check {
   display: flex;
   align-items: center;
-  gap: .7rem;
+  gap: .6rem;
   margin: 1rem 0;
-}
-
-.wz-check input,
-.wz-radio input,
-.wz-card input {
-  accent-color: var(--blue);
 }
 
 .wz-fs {
-  border: 1px solid var(--border);
-  border-radius: 14px;
   padding: 1rem 1.2rem;
   margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
 }
 
 .wz-fs legend {
   padding: 0 .5rem;
-  color: var(--navy-800);
+  color: var(--navy);
   font-weight: 600;
 }
 
@@ -604,12 +573,16 @@ button {
   cursor: pointer;
 }
 
-/* Wizard Toolbar */
+.wz-radio input,
+.wz-check input,
+.wz-card input {
+  accent-color: var(--blue);
+}
 
 .wz-toolbar {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  flex-wrap: wrap;
   gap: .8rem;
   margin-bottom: 1.2rem;
 }
@@ -618,24 +591,26 @@ button {
   margin-inline-start: auto;
 }
 
-/* Vehicle Glass Selector */
+/* Glass selector */
 
 .wz-glass {
   display: grid;
-  grid-template-columns: minmax(150px, 200px) 1fr;
+  grid-template-columns: minmax(150px,200px) 1fr;
   gap: 1.5rem;
   align-items: start;
 }
 
 .wz-car {
+  display: block;
   width: 100%;
   max-width: 200px;
   height: auto;
+  margin-inline: auto;
 }
 
 .car-body {
-  fill: #EEF3F9;
-  stroke: #9AAABD;
+  fill: #EDF2F8;
+  stroke: #98A9BC;
   stroke-width: 3;
 }
 
@@ -653,7 +628,7 @@ button {
 
 .zone:hover path,
 .zone:hover rect {
-  fill: rgba(79,179,191,.5);
+  fill: rgba(79,179,191,.48);
 }
 
 .zone.is-on path,
@@ -671,38 +646,38 @@ button {
   align-items: center;
   gap: .7rem;
 
-  padding: .75rem .9rem;
+  padding: .8rem 1rem;
 
   background: white;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 11px;
 
   cursor: pointer;
-  transition: border-color .2s ease, background .2s ease;
+  transition: border-color .2s, background .2s;
 }
 
 .wz-pos:hover {
   border-color: var(--cyan);
-  background: #F3FBFC;
+  background: #F2FAFB;
 }
 
 .wz-badge {
   margin-inline-start: auto;
-  padding: .15rem .6rem;
+  padding: .1rem .6rem;
 
   color: #1A6670;
   background: #E3F5F7;
-
   border-radius: 999px;
+
   font-size: .75rem;
   font-style: normal;
 }
 
-/* Branch Cards */
+/* Branch and choice cards */
 
 .wz-branches {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
   gap: 1rem;
   margin: .8rem 0;
 }
@@ -719,11 +694,11 @@ button {
   border-radius: 14px;
 
   cursor: pointer;
-  transition: border-color .2s ease, box-shadow .2s ease;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 .wz-card:hover {
-  border-color: var(--blue-light);
+  border-color: var(--blue);
   box-shadow: var(--shadow-sm);
 }
 
@@ -737,14 +712,13 @@ button {
   cursor: not-allowed;
 }
 
-/* Order Summary */
+/* Summary and navigation */
 
 .wz-sum dt {
   display: flex;
   gap: .8rem;
   margin-top: 1rem;
-
-  color: var(--navy-800);
+  color: var(--navy);
   font-weight: 700;
 }
 
@@ -764,10 +738,7 @@ button {
   border: 0;
   text-decoration: underline;
   cursor: pointer;
-  font: inherit;
 }
-
-/* Wizard Navigation */
 
 .wz-nav {
   display: flex;
@@ -777,29 +748,29 @@ button {
   margin-top: 1.5rem;
 }
 
-/* Brand Grid */
+/* ---------- Vehicle Brands ---------- */
 
 .brand-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
   gap: 1rem;
 }
 
 .brand-tile {
+  min-height: 130px;
+  padding: 1rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: .7rem;
 
-  min-height: 120px;
-  padding: 1rem;
-
-  color: var(--navy-800);
+  color: var(--navy);
   background: white;
 
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
 
   font: inherit;
   font-weight: 600;
@@ -807,14 +778,11 @@ button {
   cursor: pointer;
   box-shadow: var(--shadow-sm);
 
-  transition:
-    transform .2s ease,
-    border-color .2s ease,
-    box-shadow .2s ease;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
 }
 
 .brand-tile:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--cyan);
   box-shadow: var(--shadow);
 }
@@ -822,61 +790,59 @@ button {
 .brand-tile img {
   width: auto;
   max-width: 100px;
-  height: 42px;
+  height: 44px;
   object-fit: contain;
 }
 
-/* Contact */
+/* ---------- Contact ---------- */
+
+#contact-info p {
+  margin-bottom: .8rem;
+}
 
 #contact-info a {
   color: var(--blue);
-  text-decoration: none;
   font-weight: 600;
+  text-decoration: none;
 }
 
 #contact-info a:hover {
   text-decoration: underline;
 }
 
-#contact-info p {
-  margin-bottom: .7rem;
-}
-
-/* Footer */
+/* ---------- Footer ---------- */
 
 .site-footer {
+  min-height: 110px;
+  padding: 2.2rem 6%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
 
-  padding: 2.2rem 6vw;
-
-  color: #B9C8DB;
-  background: var(--navy-950);
-
-  border-top: 1px solid rgba(255,255,255,.08);
+  color: #C3D0E0;
+  background: var(--navy);
 }
 
 .site-footer a {
   color: white;
   text-decoration: none;
-  transition: color .2s ease;
 }
 
 .site-footer a:hover {
   color: var(--cyan);
 }
 
-/* Privacy */
+/* ---------- Privacy ---------- */
 
 #privacy {
   background: white;
   border-radius: var(--radius);
 }
 
-/* Accessibility */
+/* ---------- Accessibility ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   *,
