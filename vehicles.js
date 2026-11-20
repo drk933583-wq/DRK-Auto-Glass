@@ -96,13 +96,34 @@ export function vehicleStep(box, state) {
     field('رقم الشاسيه VIN ', vin), msg);
   toggle(); renderYear(); refreshBrands(); if (v.brand) { refreshModels(); if (v.model) { refreshGens().then(refreshVariants); } }
 
-  return { validate() {
-    if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
-    if (v.manual) {
-      if ((v.mbrand || '').trim().length < 2 || (v.mmodel || '').trim().length < 2) return 'اكتب ماركة وموديل السيارة.';
-      if (v.myear && !/^\d{4}$/.test(v.myear)) return 'سنة الصنع غير صحيحة.'; return null; }
-    if (!v.brand) return 'اختر الماركة.'; if (!v.model) return 'اختر الموديل.'; if (!v.generation) return 'اختر الجيل.';
-    const y = Number(v.year); if (!y || y < 1950 || y > thisYear + 1) return 'اختر سنة الصنع.';
-    const g = v.generation; if ((g.start != null && y < g.start) || (g.end != null && y > g.end)) return 'السنة خارج نطاق الجيل المختار.';
-    return null; } };
-}
+  return {
+  validate() {
+    if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) {
+      return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
+    }
+
+    const year = v.manual ? v.myear : v.year;
+
+    if (year && !/^\d{4}$/.test(String(year))) {
+      return 'سنة الصنع غير صحيحة.';
+    }
+
+    if (year && (Number(year) < 1950 || Number(year) > thisYear + 1)) {
+      return 'سنة الصنع غير صحيحة.';
+    }
+
+    if (!v.manual && v.generation && year) {
+      const g = v.generation;
+      const y = Number(year);
+
+      if (
+        (g.start != null && y < g.start) ||
+        (g.end != null && y > g.end)
+      ) {
+        return 'السنة خارج نطاق الجيل المختار.';
+      }
+    }
+
+    return null;
+  }
+};
