@@ -72,17 +72,83 @@ a{color:inherit}
 .wz-done .btn{text-decoration:none;display:inline-block}
 .hero__logo {
   display: block;
-  width: 100%;
-  max-width: 560px;
+  position: relative;
+  width: min(100%, 650px);
   height: auto;
+  aspect-ratio: 3 / 2;
   object-fit: contain;
-  margin: 0 auto;
-  border-radius: 12px;
+
+  margin: 25px auto;
+  padding: 12px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(16, 42, 75, 0.95),
+    rgba(4, 13, 29, 0.98)
+  );
+
+  border: 1px solid rgba(79, 179, 191, 0.35);
+  border-radius: 24px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.40),
+    0 0 35px rgba(35, 160, 220, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+
+  animation: logo-entrance 0.9s ease both;
 }
 
+/* Elegant hover effect */
+.hero__logo:hover {
+  transform: translateY(-7px) scale(1.015);
+
+  border-color: rgba(79, 200, 255, 0.75);
+
+  box-shadow:
+    0 35px 75px rgba(0, 0, 0, 0.50),
+    0 0 45px rgba(35, 160, 220, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Entrance animation */
+@keyframes logo-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive layout */
 @media (max-width: 768px) {
   .hero__logo {
-    max-width: 100%;
-    margin-top: 25px;
+    width: 100%;
+    max-width: 520px;
+    padding: 7px;
+    margin: 20px auto;
+    border-radius: 17px;
   }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero__logo {
+    animation: none;
+    transition: none;
+  }
+
+  .hero__logo:hover {
+    transform: none;
+  }
+}
+
 }
