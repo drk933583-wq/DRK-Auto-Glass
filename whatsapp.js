@@ -7,20 +7,11 @@ const NA = 'غير متوفر';
 export function buildMessage(ref, state, cat, company = 'DR. KHALED') {
   const v = state.vehicle, s = state.service, c = state.customer, L = [];
   L.push(`طلب جديد – ${company}`, '', `رقم الطلب: ${ref}`, '', 'بيانات السيارة:');
- if (v.manual) {
-  const manualDetails = [v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' ');
-  L.push(`السيارة (تحقق يدوي): ${manualDetails || 'لم يحدد العميل بيانات السيارة'}`);
-} else {
-  if (v.brand) L.push(`الشركة: ${v.brand.label}`);
-  if (v.model) L.push(`الموديل: ${v.model.label}`);
-  if (v.generation) L.push(`الجيل: ${v.generation.label}`);
-  if (v.year) L.push(`سنة الصنع: ${v.year}`);
-  if (v.variant) L.push(`الفئة: ${v.variant.label}`);
-
-  if (!v.brand && !v.model && !v.generation && !v.year) {
-    L.push('لم يحدد العميل بيانات السيارة – يلزم التحقق من فريق المبيعات.');
+  if (v.manual) L.push(`السيارة (تحقق يدوي): ${[v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' ')}`);
+  else {
+    L.push(`الشركة: ${v.brand.label}`, `الموديل: ${v.model.label}`, `الجيل: ${v.generation.label}`, `سنة الصنع: ${v.year}`);
+    if (v.variant) L.push(`الفئة: ${v.variant.label}`);
   }
-}
   if (state.vin) L.push(`رقم الشاسيه: ${state.vin}`);
   L.push('', 'المواصفات:');
   const specs = cat.specs.filter(x => x.code !== 'origin' && state.specs[x.code]);
