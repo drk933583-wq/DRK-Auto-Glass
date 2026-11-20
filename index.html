@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DR. KHALED – زجاج السيارات</title>
+  <meta name="description" content="DR. KHALED – متخصصون في زجاج السيارات وخدمات الاستبدال. اطلب الزجاج المناسب لسيارتك بسهولة.">
+  <meta name="theme-color" content="#07132A">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307132A'/%3E%3Cpath d='M12 46 L20 20 Q32 14 44 20 L52 46 Z' fill='none' stroke='%234FB3BF' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="banner" class="banner" hidden role="status"></div>
+<header class="site-header">
+  <a class="brand" href="#top" data-s="company_name">DR. KHALED</a>
+  <nav aria-label="القائمة الرئيسية">
+    <a href="#services">الخدمات</a><a href="#how">كيف تعمل</a><a href="#why">لماذا نحن</a><a href="#brands">الماركات</a><a href="#contact">تواصل</a>
+  </nav>
+</header>
+<main id="top">
+  <section class="hero">
+    <div class="hero__text">
+      <h1 data-s="welcome_title">أهلاً بيك في DR. KHALED</h1>
+      <p data-s="welcome_text">متخصصون في زجاج السيارات وخدمات الاستبدال.</p>
+      <button id="start-btn" class="btn btn--primary" data-s="cta_label">ابدأ طلبك الآن</button>
+    </div>
+    <svg class="hero__glass" viewBox="0 0 400 260" aria-hidden="true">
+      <path d="M40 220 L90 60 Q200 20 310 60 L360 220 Z" class="glass-shape"/>
+      <path d="M120 70 L170 70 L110 210 L80 210 Z" class="glass-streak"/>
+      <path d="M190 62 L215 62 L160 215 L135 215 Z" class="glass-streak glass-streak--2"/>
+    </svg>
+  </section>
+
+  <section id="start" class="section"><h2>ابحث عن زجاج سيارتك</h2>
+    <div id="wizard" class="wizard"></div></section>
+  <section id="services" class="section"><h2>خدمات استبدال الزجاج</h2><div id="services-list" class="muted">تُدار من لوحة التحكم.</div></section>
+  <section id="how" class="section"><h2>كيف تعمل الخدمة</h2>
+    <ol class="steps"><li>اختر سيارتك</li><li>حدّد الزجاج المطلوب</li><li>اختر الفرع أو الخدمة المتنقلة</li><li>أرسل طلبك على واتساب</li></ol></section>
+  <section id="why" class="section"><h2>لماذا DR. KHALED</h2><div id="why-list" class="muted">تُدار من لوحة التحكم.</div></section>
+  <section id="brands" class="section"><h2>ماركات السيارات</h2><div id="brands-grid" class="muted">تُحمَّل من قاعدة البيانات.</div></section>
+  <section id="contact" class="section"><h2>تواصل معنا</h2><div id="contact-info" class="muted">بيانات التواصل من الإعدادات.</div></section>
+  <section id="privacy" class="section" hidden><h2>سياسة الخصوصية</h2><p id="privacy-text" class="prewrap"></p></section>
+</main>
+<footer class="site-footer"><span data-s="footer_text"></span><a href="#privacy">سياسة الخصوصية</a></footer>
+<noscript><p style="padding:1rem;text-align:center">يلزم تفعيل JavaScript لاستخدام الموقع.</p></noscript>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

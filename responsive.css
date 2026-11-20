@@ -1,0 +1,6 @@
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:2.5rem 5vw}
+  .hero__glass{order:-1;max-width:300px}
+  .site-header nav{display:none}
+  .section{padding:2.5rem 5vw}
+}
