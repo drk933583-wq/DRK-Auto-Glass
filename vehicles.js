@@ -108,22 +108,36 @@ export function vehicleStep(box, state) {
       return 'سنة الصنع غير صحيحة.';
     }
 
-    if (year && (Number(year) < 1950 || Number(year) > thisYear + 1)) {
-      return 'سنة الصنع غير صحيحة.';
-    }
-
-    if (!v.manual && v.generation && year) {
-      const g = v.generation;
-      const y = Number(year);
-
-      if (
-        (g.start != null && y < g.start) ||
-        (g.end != null && y > g.end)
-      ) {
-        return 'السنة خارج نطاق الجيل المختار.';
+   
+  return {
+    validate() {
+      if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) {
+        return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
       }
-    }
 
-    return null;
-  }
-};
+      const year = v.manual ? v.myear : v.year;
+
+      if (year && !/^\d{4}$/.test(String(year))) {
+        return 'سنة الصنع غير صحيحة.';
+      }
+
+      if (year && (Number(year) < 1950 || Number(year) > thisYear + 1)) {
+        return 'سنة الصنع غير صحيحة.';
+      }
+
+      if (!v.manual && v.generation && year) {
+        const g = v.generation;
+        const y = Number(year);
+
+        if (
+          (g.start != null && y < g.start) ||
+          (g.end != null && y > g.end)
+        ) {
+          return 'السنة خارج نطاق الجيل المختار.';
+        }
+      }
+
+      return null;
+    }
+  };
+}
