@@ -1,15 +1,15 @@
 
-/* =========================================
+/* ==================================================
    DR/KHALED AUTO GLASS
-   Responsive Layout
-========================================= */
+   Responsive Corporate Experience
+================================================== */
 
-/* Tablets */
+/* ---------- Medium Screens ---------- */
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
 
   .site-header {
-    padding-inline: 4vw;
+    padding-inline: 4%;
   }
 
   .site-header nav {
@@ -17,21 +17,25 @@
   }
 
   .hero {
+    padding: 4rem 5%;
     gap: 2rem;
-    padding: 4rem 5vw;
-    min-height: 560px;
+    min-height: 570px;
   }
 
   .hero__logo {
-    max-width: 480px;
+    max-width: 500px;
   }
 
   .section {
-    padding: 4rem 5vw;
+    padding-inline: 5%;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2,minmax(0,1fr));
   }
 }
 
-/* Mobile */
+/* ---------- Tablets and Mobile ---------- */
 
 @media screen and (max-width: 760px) {
 
@@ -39,136 +43,157 @@
 
   .site-header {
     min-height: 65px;
-    padding: .7rem 5vw;
+    padding: .65rem 5%;
   }
 
   .brand {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
   }
 
   .brand__logo {
-    height: 32px;
+    height: 33px;
   }
 
   .site-header nav {
     display: none;
   }
 
-  /* Hero */
+  /* Main Hero */
 
   main#top .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
 
-    gap: 1.5rem;
+    gap: 0 !important;
 
-    min-height: auto;
-    padding: 1.5rem 4vw 3rem;
+    min-height: auto !important;
+    padding: 0 0 38px !important;
 
-    text-align: center;
+    text-align: center !important;
   }
 
+  /* Full-width brand visual */
+
   main#top .hero > img.hero__logo {
-    order: -1;
+    display: block !important;
+    order: -1 !important;
 
-    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
 
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: auto;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    object-fit: contain;
+    object-fit: contain !important;
 
-    margin: 0 auto;
-    padding: 6px;
+    border: 0 !important;
+    border-radius: 0 !important;
 
-    border-radius: 18px;
-
-    box-shadow:
-      0 18px 40px rgba(0,0,0,.3),
-      0 0 30px rgba(23,105,232,.18);
+    box-shadow: 0 12px 35px rgba(0,0,0,.24) !important;
   }
 
   main#top .hero > .hero__text {
-    order: 2;
-    width: 100%;
-    max-width: 100%;
-    text-align: center;
+    order: 2 !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    padding: 30px 6% 0 !important;
+    text-align: center !important;
   }
 
   .hero__text h1 {
-    font-size: clamp(1.7rem, 7vw, 2.2rem);
-    line-height: 1.45;
-    margin-bottom: .8rem;
+    max-width: 650px;
+    margin: 0 auto 14px !important;
+
+    font-size: clamp(28px, 7vw, 38px) !important;
+    line-height: 1.5 !important;
   }
 
   .hero__text p {
-    max-width: 100%;
-    font-size: .98rem;
-    line-height: 1.9;
-    margin: 0 auto 1.4rem;
+    max-width: 520px !important;
+    margin: 0 auto 22px !important;
+
+    font-size: 17px !important;
+    line-height: 2 !important;
   }
 
   .hero__text .btn {
-    width: 100%;
-    max-width: 340px;
-    min-height: 54px;
+    width: 100% !important;
+    max-width: 390px !important;
+    min-height: 58px !important;
+
+    margin-inline: auto;
+    font-size: 17px !important;
   }
 
-  /* Sections */
+  /* General Sections */
 
   .section {
-    padding: 3rem 5vw;
+    width: 100%;
+    padding: 48px 5%;
   }
 
   .section h2 {
-    font-size: 1.55rem;
-    margin-bottom: 1.3rem;
+    font-size: 26px;
+    line-height: 1.5;
+    margin-bottom: 22px;
   }
 
-  /* Steps */
+  /* Customer Journey */
 
   .steps {
     grid-template-columns: 1fr;
-    gap: .8rem;
+    gap: 12px;
   }
 
   .steps li {
-    min-height: 90px;
+    min-height: 100px;
+    padding: 1.2rem;
+    padding-inline-start: 4.5rem;
   }
 
-  /* Wizard */
+  /* Order Wizard */
 
   .wizard {
-    padding: 1.2rem;
+    padding: 20px 16px;
     border-radius: 17px;
   }
 
   .wz-steps {
-    gap: .45rem;
-    margin-bottom: 1.5rem;
+    gap: 7px;
+    margin-bottom: 22px;
   }
 
   .wz-steps li {
-    padding: .35rem .7rem;
-    font-size: .8rem;
+    padding: 6px 11px;
+    font-size: 12px;
   }
 
   .wz-grid {
     grid-template-columns: 1fr;
   }
 
+  .wz-field {
+    width: 100%;
+  }
+
+  .wz-field input,
+  .wz-field select,
+  .wz-field textarea {
+    font-size: 16px;
+  }
+
   .wz-glass {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 20px;
   }
 
   .wz-car {
-    max-width: 210px;
-    margin-inline: auto;
+    max-width: 230px;
   }
 
   .wz-poslist {
@@ -190,24 +215,30 @@
   .wz-nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .wz-nav .btn {
     width: 100%;
-    padding-inline: .6rem;
+    padding-inline: 8px;
+    font-size: 14px;
   }
 
   /* Brands */
 
   .brand-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .7rem;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 12px;
   }
 
   .brand-tile {
-    min-height: 105px;
-    padding: .7rem;
-    font-size: .9rem;
+    min-height: 115px;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .brand-tile img {
+    height: 40px;
   }
 
   /* Footer */
@@ -215,67 +246,64 @@
   .site-footer {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 1.8rem 5vw;
+
+    padding: 28px 5%;
+    gap: 12px;
   }
 }
 
-/* Small Phones */
+/* ---------- Small Mobile ---------- */
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 390px) {
 
   .site-header {
-    padding-inline: 4vw;
+    padding-inline: 4%;
   }
 
   .brand {
     font-size: 1rem;
   }
 
-  main#top .hero {
-    padding: 1rem 3vw 2.5rem;
-    gap: 1.2rem;
-  }
-
-  main#top .hero > img.hero__logo {
-    padding: 4px;
-    border-radius: 14px;
+  main#top .hero > .hero__text {
+    padding-inline: 5% !important;
   }
 
   .hero__text h1 {
-    font-size: 1.6rem;
+    font-size: 27px !important;
+  }
+
+  .hero__text p {
+    font-size: 16px !important;
   }
 
   .section {
-    padding-inline: 4vw;
+    padding: 40px 4%;
   }
 
   .wizard {
-    padding: .9rem;
-  }
-
-  .wz-steps li {
-    font-size: .75rem;
+    padding: 15px 11px;
   }
 
   .wz-nav {
-    gap: .5rem;
+    gap: 7px;
   }
 
   .wz-nav .btn {
-    font-size: .88rem;
+    font-size: 13px;
   }
 }
 
-/* Larger Desktop Screens */
+/* ---------- Wide Desktop ---------- */
 
-@media (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
 
   .hero {
-    padding-inline: max(7vw, calc((100vw - 1300px) / 2));
+    padding-inline: max(7%, calc((100vw - 1350px) / 2));
   }
 
   .section {
-    max-width: 1300px;
+    max-width: 1350px;
   }
 }
