@@ -70,3 +70,19 @@ a{color:inherit}
 @media (max-width:760px){.wz-glass{grid-template-columns:1fr}.wz-diagram{justify-self:center;width:160px}.wizard{padding:1rem}}
 .wz-done{text-align:center;padding:1.5rem 0;display:grid;gap:.8rem;justify-items:center}
 .wz-done .btn{text-decoration:none;display:inline-block}
+.hero__logo {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .hero__logo {
+    max-width: 100%;
+    margin-top: 25px;
+  }
+}
