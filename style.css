@@ -66,7 +66,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; }
 }
 .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; font-size: 1.25rem; letter-spacing: .05em; color: #fff; direction: ltr; }
 .brand:hover { color: var(--teal); text-decoration: none; }
-.brand__logo { height: 34px; width: auto; }
+.brand__logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
 .site-header nav { display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none; }
 .site-header nav::-webkit-scrollbar { display: none; }
 .site-header nav a { padding: .45rem .85rem; font-size: .95rem; white-space: nowrap; color: #cfe3e8; border-radius: 999px; transition: background .2s, color .2s; }
