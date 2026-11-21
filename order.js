@@ -7,7 +7,7 @@ import { specsStep, glassStep, label, posLabel, specLabel } from './glass-select
 
 export const newState = () => ({
   token: crypto.randomUUID(),          // idempotency key: a retry of the same order never creates a duplicate
-  vehicle: {}, vin: '', specs: {}, origin: '', photo: null, positions: new Set(), glassUnknown: false, otherNote: '',
+  vehicle: {}, vin: '', specs: {}, origin: '', photo: , positions: new Set(), glassUnknown: false, otherNote: '',
   service: { method: '', branch_id: '', branch_label: '', address: '' }, customer: { name: '', phone: '', phone2: '', address: '', notes: '' },
 });
 export const PHONE_RE = /^\+?[0-9]{10,15}$/;
@@ -46,20 +46,20 @@ function serviceStep(box, state, cat) {
 }
 
 function customerStep(box, state) {
-  const c = state.customer, bind = (key, attrs) => { const i = h(attrs.rows ? 'textarea' : 'input', { ...attrs, ...(attrs.rows ? {} : { value: c[key] || '' }) }, attrs.rows ? c[key] || '' : null);
+  const c = state.customer, bind = (key, attrs) => { const i = h(attrs.rows ? 'textarea' : 'input', { ...attrs, ...(attrs.rows ? {} : { value: c[key] || '' }) }, attrs.rows ? c[key] || '' : );
     i.addEventListener('input', () => { c[key] = i.value; }); return i; };
   box.replaceChildren(h('h3', {}, 'بيانات التواصل'),
     h('div', { class: 'wz-grid' }, field('الاسم الكامل *', bind('name', { type: 'text', maxlength: 100, autocomplete: 'name' })),
       field('رقم الموبايل الأساسي *', bind('phone', { type: 'tel', dir: 'ltr', inputmode: 'tel', autocomplete: 'tel', placeholder: '01XXXXXXXXX' })),
       field('رقم إضافي (اختياري)', bind('phone2', { type: 'tel', dir: 'ltr', inputmode: 'tel' })),
-      state.service.method === 'branch' ? field('العنوان (اختياري)', bind('address', { type: 'text', maxlength: 300 })) : null),
+      state.service.method === 'branch' ? field('العنوان (اختياري)', bind('address', { type: 'text', maxlength: 300 })) : ),
     field('ملاحظات إضافية (اختياري)', bind('notes', { rows: 3, maxlength: 1000 })),
     h('p', { class: 'wz-note wz-privacy' }, 'نستخدم بياناتك فقط للتواصل معك بخصوص هذا الطلب (التحقق من التوافق والسعر والموعد)، ولا نطلب أي بيانات غير لازمة.'));
   return { validate() {
     if ((c.name || '').trim().length < 2) return 'اكتب اسمك الكامل.';
     if (!PHONE_RE.test(cleanPhone(c.phone))) return 'رقم الموبايل غير صحيح (من 10 إلى 15 رقمًا).';
     if (c.phone2 && !PHONE_RE.test(cleanPhone(c.phone2))) return 'الرقم الإضافي غير صحيح.';
-    return null; } };
+    return  } };
 }
 
 export function vehicleLabel(state) {
@@ -83,7 +83,7 @@ export function summaryRows(state, cat) {
   rows.push(['الزجاج المطلوب', pos.length ? pos : 'لا أعلم (سيساعدك فريق المبيعات)', 2]);
   rows.push(['طريقة الخدمة', serviceLabel(state.service), 3]);
   const c = state.customer;
-  rows.push(['العميل', [c.name.trim(), cleanPhone(c.phone), c.phone2 ? 'إضافي: ' + cleanPhone(c.phone2) : null, state.service.method === 'branch' ? c.address : null].filter(Boolean), 4]);
+  rows.push(['العميل', [c.name.trim(), cleanPhone(c.phone), c.phone2 ? 'إضافي: ' + cleanPhone(c.phone2) : , state.service.method === 'branch' ? c.address : ].filter(Boolean), 4]);
   if (c.notes) rows.push(['ملاحظات', c.notes, 4]);
   return rows;
 }
@@ -96,7 +96,7 @@ function reviewStep(box, state, cat, goTo) {
   submit.addEventListener('click', () => state.onSubmit?.(submit));     // pressing this button IS the confirmation
   box.replaceChildren(h('h3', {}, 'مراجعة الطلب'), dl, submit,
     h('p', { class: 'wz-note' }, 'لن يتم إرسال أي شيء قبل ضغطك على "تأكيد وإرسال الطلب". سنستخدم بياناتك فقط للتواصل معك بخصوص هذا الطلب.'));
-  return { validate: () => null };
+  return { validate: () =>  };
 }
 
 const STEPS = [['vehicle', 'السيارة', vehicleStep], ['specs', 'المواصفات', specsStep], ['glass', 'الزجاج', glassStep],
@@ -113,14 +113,14 @@ export async function initWizard(root, settings = {}) {
   } catch (e) {
     console.error(e);
     root.replaceChildren(h('p', { class: 'wz-err' }, 'تعذّر تحميل بيانات الطلب.'), h('button', { class: 'btn', type: 'button', onclick: () => initWizard(root, settings) }, 'إعادة المحاولة'));
-    return null;
+    return ;
   }
-  const state = newState(); let cur = 0, step = null;
+  const state = newState(); let cur = 0, step = ;
   const nav = h('ol', { class: 'wz-steps' }), body = h('div', { class: 'wz-body' }), err = h('p', { class: 'wz-err', role: 'alert' });
   const back = h('button', { type: 'button', class: 'btn btn--ghost' }, 'السابق'), next = h('button', { type: 'button', class: 'btn btn--primary' }, 'التالي');
   function go(i) {
     cur = i; err.textContent = '';
-    nav.replaceChildren(...STEPS.map(([k, t], idx) => h('li', { class: idx === cur ? 'is-cur' : idx < cur ? 'is-done' : '', 'aria-current': idx === cur ? 'step' : null }, `${idx + 1}. ${t}`)));
+    nav.replaceChildren(...STEPS.map(([k, t], idx) => h('li', { class: idx === cur ? 'is-cur' : idx < cur ? 'is-done' : '', 'aria-current': idx === cur ? 'step' :  }, `${idx + 1}. ${t}`)));
     step = STEPS[cur][2](body, state, cat, go);
     back.hidden = cur === 0; next.hidden = cur === STEPS.length - 1;
     root.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
@@ -146,20 +146,20 @@ export function buildPayload(state, cat, uploadPath) {
   for (const sp of cat.specs) if (sp.code !== 'origin' && state.specs[sp.code]) specs[sp.code] = { label: specLabel(sp), value: state.specs[sp.code] };
   const other = cat.positions.find(p => p.code === 'other'), manual = !!v.manual, yr = manual ? v.myear : v.year;
   return {
-    vehicle: manual ? { manual: true, manual_text: [v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' ').trim(), year: yr ? Number(yr) : null }
-      : { manual: false, brand_id: v.brand?.id || null, model_id: v.model?.id || null, generation_id: v.generation?.id || null, variant_id: v.variant?.id || null, year: yr ? Number(yr) : null },
-    specs, origin_preference: state.origin || null, service_method: method,
-    branch_id: method === 'branch' ? (s.branch_id || null) : null,
-    address: method === 'mobile' ? ((s.address || '').trim() || null) : ((c.address || '').trim() || null),
-    customer: { name: c.name.trim(), phone: cleanPhone(c.phone), phone2: c.phone2 ? cleanPhone(c.phone2) : null, vin: state.vin || null, notes: (c.notes || '').trim() || null },
-    positions: [...state.positions].map(id => ({ position_id: id, note: other && id === other.id ? (state.otherNote || '').trim() || null : null })),
+    vehicle: manual ? { manual: true, manual_text: [v.mbrand, v.mmodel, v.myear].filter(Boolean).join(' ').trim(), year: yr ? Number(yr) :  }
+      : { manual: false, brand_id: v.brand?.id || , model_id: v.model?.id || , generation_id: v.generation?.id || , variant_id: v.variant?.id || , year: yr ? Number(yr) :  },
+    specs, origin_preference: state.origin || , service_method: method,
+    branch_id: method === 'branch' ? (s.branch_id || ) : ,
+    address: method === 'mobile' ? ((s.address || '').trim() || ) : ((c.address || '').trim() || ),
+    customer: { name: c.name.trim(), phone: cleanPhone(c.phone), phone2: c.phone2 ? cleanPhone(c.phone2) : , vin: state.vin || , notes: (c.notes || '').trim() ||  },
+    positions: [...state.positions].map(id => ({ position_id: id, note: other && id === other.id ? (state.otherNote || '').trim() ||  :  })),
     positions_unknown: !!state.glassUnknown || state.positions.size === 0,
-    upload_path: uploadPath || null, client_token: state.token,
+    upload_path: uploadPath || , client_token: state.token,
   };
 }
 
 async function uploadPhoto(state) {
-  if (!state.photo) return null;
+  if (!state.photo) return ;
   if (state.uploadedFor === state.photo) return state.uploadedPath;           // retry: don't upload twice
   const ext = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp' }[state.photo.type];
   const path = `orders/${crypto.randomUUID()}.${ext}`;
@@ -179,13 +179,13 @@ async function submitOrder({ root, state, cat, settings, btn, err, restart }) {
     if (!data?.reference) throw new Error('no_reference');
     state.ref = data.reference;
     // WhatsApp links cannot attach files, so the photo travels as a link inside the message.
-    const photoUrl = path ? supabase.storage.from('customer-uploads').getPublicUrl(path).data.publicUrl : null;
+    const photoUrl = path ? supabase.storage.from('customer-uploads').getPublicUrl(path).data.publicUrl : ;
     const url = waUrl(settings.whatsapp_number, buildMessage(state.ref, state, cat, settings.company_name || 'DR. KHALED', photoUrl));
     root.replaceChildren(h('div', { class: 'wz-done', role: 'status' }, h('h3', {}, 'تم حفظ طلبك بنجاح'),
       h('p', {}, 'رقم الطلب: ', h('strong', { dir: 'ltr' }, state.ref)),
       url ? h('p', { class: 'wz-note' }, 'سنفتح واتساب برسالة جاهزة. اضغط "إرسال" داخل واتساب لإكمال التواصل مع فريق المبيعات. طلبك محفوظ لدينا حتى لو لم ترسل الرسالة.')
         : h('p', { class: 'wz-note' }, 'سيتواصل معك فريق المبيعات على رقم الموبايل الذي كتبته.'),
-      url ? h('a', { class: 'btn btn--primary', href: url, rel: 'noopener' }, 'فتح واتساب') : null,
+      url ? h('a', { class: 'btn btn--primary', href: url, rel: 'noopener' }, 'فتح واتساب') : ,
       h('button', { type: 'button', class: 'btn btn--ghost', onclick: restart }, 'طلب جديد')));
     if (url) setTimeout(() => { location.href = url; }, 1500);
   } catch (e) {
