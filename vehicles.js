@@ -37,30 +37,27 @@ export function vehicleStep(box, state) {
 
   async function refreshBrands() { try { const it = await loadBrands(brandQ.value);
     if (v.brand && !it.some(i => i.id === v.brand.id)) it.unshift({ id: v.brand.id, name: v.brand.label });
-    fill(brandSel, it, lbl, v.brand?.id, 'اختر الماركة'); msg.textContent = it.length ? '' : 'لا توجد نتائج.'; } catch (e) { fail(e, 'تعذّر تحميل الماركات.'); } }
+    fill(brandSel, it, lbl, v.brand?.id, 'لا أعلم / اختر من القائمة'); msg.textContent = it.length ? '' : 'لا توجد نتائج.'; } catch (e) { fail(e, 'تعذّر تحميل الماركات.'); } }
   async function refreshModels() { if (!v.brand) { modelSel.disabled = true; return; }
     try { const it = await loadModels(v.brand.id, modelQ.value);
       if (v.model && !it.some(i => i.id === v.model.id)) it.unshift({ id: v.model.id, name: v.model.label });
-      fill(modelSel, it, lbl, v.model?.id, 'اختر الموديل'); } catch (e) { fail(e, 'تعذّر تحميل الموديلات.'); } }
+      fill(modelSel, it, lbl, v.model?.id, 'لا أعلم / اختر من القائمة'); } catch (e) { fail(e, 'تعذّر تحميل الموديلات.'); } }
   async function refreshGens() { if (!v.model) { genSel.disabled = true; return; }
     try { gens = await loadGens(v.model.id);
-      fill(genSel, gens, g => g.name + (g.start_year ? ` (${g.start_year}–${g.end_year ?? 'الآن'})` : ''), v.generation?.id, gens.length ? 'اختر الجيل' : 'لا توجد أجيال'); } catch (e) { fail(e, 'تعذّر تحميل الأجيال.'); } }
+      fill(genSel, gens, g => g.name + (g.start_year ? ` (${g.start_year}–${g.end_year ?? 'الآن'})` : ''), v.generation?.id, gens.length ? 'لا أعلم / اختر من القائمة' : 'لا توجد أجيال'); } catch (e) { fail(e, 'تعذّر تحميل الأجيال.'); } }
   async function refreshVariants() { varWrap.hidden = true; if (!v.generation) return;
     try { const it = await loadVariants(v.generation.id); if (it.length) { fill(varSel, it, o => o.name + (o.market ? ` (${o.market})` : ''), v.variant?.id, 'بدون تحديد'); varWrap.hidden = false; } }
     catch (e) { fail(e, 'تعذّر تحميل الفئات.'); } }
   function renderYear() {
-    const g = v.generation;
-    if (!g) return yearBox.replaceChildren(h('select', { disabled: true, 'aria-label': 'سنة الصنع' }, h('option', {}, 'اختر الجيل أولاً')));
-    if (g.start != null) {
+    const g = v.generation, free = () => { const inp = h('input', { type: 'number', min: 1950, max: thisYear + 1, placeholder: 'لا أعلم (اختياري)', value: v.year || '', 'aria-label': 'سنة الصنع' });
+      inp.addEventListener('input', () => { v.year = inp.value; }); return inp; };
+    if (g && g.start != null) {
       const top = Math.min(g.end ?? thisYear, thisYear + 1), years = [];
       for (let y = top; y >= g.start && years.length < 80; y--) years.push(y);
-      const sel = h('select', { 'aria-label': 'سنة الصنع' }, h('option', { value: '' }, 'اختر السنة'),
+      const sel = h('select', { 'aria-label': 'سنة الصنع' }, h('option', { value: '' }, 'لا أعلم'),
         years.map(y => h('option', { value: y, selected: String(y) === String(v.year) }, y)));
       sel.addEventListener('change', () => { v.year = sel.value; }); yearBox.replaceChildren(sel);
-    } else {
-      const inp = h('input', { type: 'number', min: 1950, max: thisYear + 1, placeholder: 'مثال: 2015', value: v.year || '', 'aria-label': 'سنة الصنع' });
-      inp.addEventListener('input', () => { v.year = inp.value; }); yearBox.replaceChildren(inp);
-    }
+    } else yearBox.replaceChildren(free());      // no generation chosen: optional free-text year
   }
   let t1, t2;
   brandQ.addEventListener('input', () => { clearTimeout(t1); t1 = setTimeout(refreshBrands, 300); });
@@ -84,25 +81,22 @@ export function vehicleStep(box, state) {
     my = h('input', { type: 'number', min: 1950, max: thisYear + 1, value: v.myear || '' });
   mb.addEventListener('input', () => { v.mbrand = mb.value; }); mm.addEventListener('input', () => { v.mmodel = mm.value; }); my.addEventListener('input', () => { v.myear = my.value; });
   const manual = h('div', { class: 'wz-grid' }, field('ماركة السيارة', mb), field('الموديل', mm), field('سنة الصنع (اختياري)', my),
-    h('p', { class: 'wz-note' }, 'سيتواصل معك فريق المبيعات للتحقق من التوافق يدويًا.'));
+    h('p', { class: 'wz-note' }, 'سيتواصل معك فريق المبيعات للتحقق من التوافق يدويًا. (كل الحقول اختيارية)'));
   const chk = h('input', { type: 'checkbox', id: 'wz-manual', checked: !!v.manual });
   const toggle = () => { auto.hidden = chk.checked; manual.hidden = !chk.checked; v.manual = chk.checked; };
   chk.addEventListener('change', toggle);
   const vin = h('input', { type: 'text', value: state.vin || '', maxlength: 40, dir: 'ltr', placeholder: 'اختياري' });
   vin.addEventListener('input', () => { state.vin = vin.value.trim(); });
 
-  box.replaceChildren(h('h3', {}, 'اختر سيارتك'), auto, manual,
+  box.replaceChildren(h('h3', {}, 'اختر سيارتك'), h('p', { class: 'wz-note' }, 'كل الحقول اختيارية. لو مش عارف حاجة سيبها "لا أعلم" وفريقنا هيتأكد معاك.'), auto, manual,
     h('div', { class: 'wz-check' }, chk, h('label', { for: 'wz-manual' }, 'لم أجد سيارتي في القائمة (طلب تحقق يدوي)')),
     field('رقم الشاسيه VIN (اختياري)', vin), msg);
   toggle(); renderYear(); refreshBrands(); if (v.brand) { refreshModels(); if (v.model) { refreshGens().then(refreshVariants); } }
 
+  // Nothing here is mandatory. Only malformed values (bad VIN / year) are rejected.
   return { validate() {
     if (state.vin && !/^[A-Za-z0-9]{5,40}$/.test(state.vin)) return 'رقم الشاسيه يحتوي على حروف وأرقام إنجليزية فقط (5 إلى 40).';
-    if (v.manual) {
-      if ((v.mbrand || '').trim().length < 2 || (v.mmodel || '').trim().length < 2) return 'اكتب ماركة وموديل السيارة.';
-      if (v.myear && !/^\d{4}$/.test(v.myear)) return 'سنة الصنع غير صحيحة.'; return null; }
-    if (!v.brand) return 'اختر الماركة.'; if (!v.model) return 'اختر الموديل.'; if (!v.generation) return 'اختر الجيل.';
-    const y = Number(v.year); if (!y || y < 1950 || y > thisYear + 1) return 'اختر سنة الصنع.';
-    const g = v.generation; if ((g.start != null && y < g.start) || (g.end != null && y > g.end)) return 'السنة خارج نطاق الجيل المختار.';
+    const y = v.manual ? v.myear : v.year;
+    if (y && (!/^\d{4}$/.test(String(y)) || Number(y) < 1950 || Number(y) > thisYear + 1)) return 'سنة الصنع غير صحيحة (4 أرقام).';
     return null; } };
 }

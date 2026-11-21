@@ -25,7 +25,7 @@ export function specsStep(box, state, cat) {
     if (f.size > 5 * 1024 * 1024) { file.value = ''; return void (msg.textContent = 'حجم الصورة أكبر من 5MB.'); }
     state.photo = f; msg.textContent = 'تم اختيار: ' + f.name; });
   box.replaceChildren(h('h3', {}, 'المواصفات الفنية'), h('p', { class: 'wz-note' }, 'كل المواصفات اختيارية. إذا لم تكن متأكدًا اختر "غير متأكد".'),
-    ...groups, h('label', { class: 'wz-field' }, h('span', {}, 'صورة للسيارة أو الزجاج الحالي (اختياري)'), file), msg);
+    ...groups, h('label', { class: 'wz-field' }, h('span', {}, 'صورة للزجاج أو السيارة (اختياري). سيصل رابطها لفريق المبيعات داخل رسالة واتساب'), file), msg);
   if (state.photo) msg.textContent = 'تم اختيار: ' + state.photo.name;
   return { validate: () => null };
 }
@@ -43,17 +43,20 @@ const svgEl = (tag, attrs = {}) => { const e = document.createElementNS(NS, tag)
 export function glassStep(box, state, cat) {
   const sel = state.positions, byId = new Map(cat.positions.map(p => [p.id, p]));
   const counter = h('strong', {}), list = h('div', { class: 'wz-poslist' }), note = h('textarea', { rows: 2, maxlength: 300, placeholder: 'صف الزجاج الخاص المطلوب', value: '' }, state.otherNote || '');
-  const noteWrap = h('label', { class: 'wz-field' }, h('span', {}, 'وصف الزجاج الآخر / الخاص *'), note);
+  const noteWrap = h('label', { class: 'wz-field' }, h('span', {}, 'وصف الزجاج الآخر / الخاص (اختياري)'), note);
   note.addEventListener('input', () => { state.otherNote = note.value; });
   const checks = new Map(), zones = new Map(); let confirmed = new Set();
+  const unk = h('input', { type: 'checkbox', id: 'pos-unknown' });
+  unk.addEventListener('change', () => { state.glassUnknown = unk.checked; if (unk.checked) sel.clear(); sync(); });
+  const unkRow = h('label', { class: 'wz-pos', for: 'pos-unknown' }, unk, h('span', {}, 'لا أعلم / أحتاج مساعدة فريق المبيعات في تحديد الزجاج'));
 
   function sync() {
-    counter.textContent = sel.size;
+    counter.textContent = sel.size; unk.checked = !!state.glassUnknown;
     for (const [id, c] of checks) c.checked = sel.has(id);
     for (const [id, z] of zones) { z.classList.toggle('is-on', sel.has(id)); z.setAttribute('aria-checked', String(sel.has(id))); }
     noteWrap.hidden = ![...sel].some(id => byId.get(id)?.code === 'other');
   }
-  const toggle = id => { sel.has(id) ? sel.delete(id) : sel.add(id); sync(); };
+  const toggle = id => { sel.has(id) ? sel.delete(id) : sel.add(id); if (sel.size) state.glassUnknown = false; sync(); };
 
   for (const p of cat.positions) {
     const c = h('input', { type: 'checkbox', id: 'pos-' + p.id }); c.addEventListener('change', () => toggle(p.id)); checks.set(p.id, c);
@@ -69,11 +72,11 @@ export function glassStep(box, state, cat) {
     z.addEventListener('click', () => toggle(p.id)); z.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(p.id); } });
     zones.set(p.id, z); svg.append(z);
   }
-  const all = h('button', { type: 'button', class: 'btn btn--ghost', onclick: () => { cat.positions.forEach(p => sel.add(p.id)); sync(); } }, 'تحديد الكل');
+  const all = h('button', { type: 'button', class: 'btn btn--ghost', onclick: () => { cat.positions.forEach(p => sel.add(p.id)); state.glassUnknown = false; sync(); } }, 'تحديد الكل');
   const none = h('button', { type: 'button', class: 'btn btn--ghost', onclick: () => { sel.clear(); sync(); } }, 'مسح التحديد');
   box.replaceChildren(h('h3', {}, 'اختر الزجاج المطلوب'),
     h('div', { class: 'wz-toolbar' }, all, none, h('span', {}, 'المحدد: ', counter)),
-    h('div', { class: 'wz-glass' }, h('div', { class: 'wz-diagram', dir: 'ltr' }, svg), list), noteWrap,
+    h('div', { class: 'wz-glass' }, h('div', { class: 'wz-diagram', dir: 'ltr' }, svg), list), unkRow, noteWrap,
     h('p', { class: 'wz-note' }, 'ليس كل الأوضاع متوفرة في كل السيارات. سيؤكد فريق المبيعات التوافق والتوافر.'));
   sync();
 
@@ -83,8 +86,5 @@ export function glassStep(box, state, cat) {
     .then(({ data }) => { confirmed = new Set((data || []).map(r => r.glass_position_id));
       box.querySelectorAll('.wz-badge').forEach(b => { b.hidden = !confirmed.has(b.dataset.pos); }); });
 
-  return { validate() {
-    if (!sel.size) return 'اختر موضع زجاج واحدًا على الأقل.';
-    if ([...sel].some(id => byId.get(id)?.code === 'other') && (state.otherNote || '').trim().length < 3) return 'اكتب وصف الزجاج الآخر / الخاص.';
-    return null; } };
+  return { validate: () => null };   // glass selection is optional ("لا أعلم" is valid)
 }
