@@ -20,10 +20,19 @@ function serviceStep(box, state, cat) {
     r.addEventListener('change', () => { s.method = val; draw(); }); return h('label', { class: 'wz-card' + (disabled ? ' is-off' : '') }, r, h('span', {}, text)); };
   function draw() {
     if (s.method === 'branch') {
-      area.replaceChildren(h('div', { class: 'wz-branches' }, cat.branches.map(b => {
-        const r = h('input', { type: 'radio', name: 'branch', value: b.id, checked: s.branch_id === b.id });
-        r.addEventListener('change', () => { s.branch_id = b.id; s.branch_label = b.name + (b.address ? ' – ' + b.address : ''); });
-        return h('label', { class: 'wz-card' }, r, h('span', {}, h('strong', {}, b.name), b.address ? h('small', {}, b.address) : null)); })));
+      const list = h('div', { class: 'wz-branches' }), safe = u => /^https:\/\//.test(u || '');
+      const q = h('input', { type: 'search', placeholder: 'ابحث عن فرع…', 'aria-label': 'بحث عن فرع' });
+      const drawList = () => {
+        const t = q.value.trim().toLowerCase(), items = cat.branches.filter(b => !t || (b.name + ' ' + (b.address || '')).toLowerCase().includes(t));
+        list.replaceChildren(...(items.length ? items.map(b => {
+          const r = h('input', { type: 'radio', name: 'branch', value: b.id, checked: s.branch_id === b.id });
+          r.addEventListener('change', () => { s.branch_id = b.id; s.branch_label = b.name + (b.address ? ' – ' + b.address : ''); s.branch_map = safe(b.map_url) ? b.map_url : ''; });
+          return h('label', { class: 'wz-card' }, r, h('span', {}, h('strong', {}, b.name), b.address ? h('small', {}, b.address) : null,
+            safe(b.map_url) ? h('a', { class: 'wz-link', href: b.map_url, target: '_blank', rel: 'noopener noreferrer' }, 'عرض الموقع على الخريطة') : null)); })
+          : [h('p', { class: 'wz-note' }, 'لا توجد فروع مطابقة.')]));
+      };
+      q.addEventListener('input', drawList); drawList();
+      area.replaceChildren(q, list);
     } else if (s.method === 'mobile') {
       const a = h('textarea', { rows: 3, maxlength: 300, placeholder: 'العنوان بالتفصيل' }, s.address || ''); a.addEventListener('input', () => { s.address = a.value; });
       area.replaceChildren(field('عنوانك (اختياري)', a), h('p', { class: 'wz-note' }, 'توفر الخدمة المتنقلة في منطقتك يؤكده فريق المبيعات، وليس مضمونًا تلقائيًا.'));

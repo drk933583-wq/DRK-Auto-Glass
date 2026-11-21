@@ -25,6 +25,7 @@ export function buildMessage(ref, state, cat, company = 'DR. KHALED', photoUrl =
   L.push('', 'طريقة الخدمة:',
     s.method === 'branch' ? `التوجه إلى فرع: ${s.branch_label || 'لم يُحدَّد'}`
     : s.method === 'mobile' ? `خدمة متنقلة – العنوان: ${(s.address || '').trim() || 'سيتم تحديده'}` : 'لم تُحدَّد بعد');
+  if (s.method === 'branch' && s.branch_map) L.push(`موقع الفرع: ${s.branch_map}`);
   L.push('', 'بيانات العميل:', `الاسم: ${c.name.trim()}`, `رقم الهاتف: ${cleanPhone(c.phone)}`, `رقم إضافي: ${c.phone2 ? cleanPhone(c.phone2) : NA}`);
   if (s.method === 'branch') L.push(`العنوان: ${c.address?.trim() || NA}`);
   L.push('', 'ملاحظات:'); if (c.notes?.trim()) L.push(c.notes.trim());
