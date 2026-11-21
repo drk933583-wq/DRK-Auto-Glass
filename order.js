@@ -27,8 +27,8 @@ function serviceStep(box, state, cat) {
         list.replaceChildren(...(items.length ? items.map(b => {
           const r = h('input', { type: 'radio', name: 'branch', value: b.id, checked: s.branch_id === b.id });
           r.addEventListener('change', () => { s.branch_id = b.id; s.branch_label = b.name + (b.address ? ' – ' + b.address : ''); s.branch_map = safe(b.map_url) ? b.map_url : ''; });
-          return h('label', { class: 'wz-card' }, r, h('span', {}, h('strong', {}, b.name), b.address ? h('small', {}, b.address) : null,
-            safe(b.map_url) ? h('a', { class: 'wz-link', href: b.map_url, target: '_blank', rel: 'noopener noreferrer' }, 'عرض الموقع على الخريطة') : null)); })
+          return h('label', { class: 'wz-card' }, r, h('span', {}, h('strong', {}, b.name), b.address ? h('small', {}, b.address) : ,
+            safe(b.map_url) ? h('a', { class: 'wz-link', href: b.map_url, target: '_blank', rel: 'noopener noreferrer' }, 'عرض الموقع على الخريطة') : )); })
           : [h('p', { class: 'wz-note' }, 'لا توجد فروع مطابقة.')]));
       };
       q.addEventListener('input', drawList); drawList();
@@ -40,9 +40,9 @@ function serviceStep(box, state, cat) {
   }
   box.replaceChildren(h('h3', {}, 'كيف تفضّل الحصول على الخدمة؟'),
     h('div', { class: 'wz-branches' }, radio('branch', 'التوجه إلى فرع DR. KHALED', !cat.branches.length), radio('mobile', 'استبدال متنقل في موقعي (إن توفر)', false), radio('unspecified', 'لم أحدد بعد / لا أعلم', false)),
-    !cat.branches.length ? h('p', { class: 'wz-note' }, 'لا توجد فروع متاحة حاليًا.') : null, area);
+    !cat.branches.length ? h('p', { class: 'wz-note' }, 'لا توجد فروع متاحة حاليًا.') : , area);
   draw();
-  return { validate: () => null };   // service method / branch / address are all optional
+  return { validate: () =>  };   // service method / branch / address are all optional
 }
 
 function customerStep(box, state) {
