@@ -1,37 +1,39 @@
-/* css/responsive.css (v3) */
-@media (max-width: 900px) {
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .wz-glass { grid-template-columns: 1fr; }
-  .wz-diagram { position: static; }
-  .wz-car { max-width: 210px; }
+/* DR. KHALED – public site, small screens */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:1.5rem;min-height:0}
+  .hero__glass{order:-1;max-width:300px}
+  .wz-glass{grid-template-columns:1fr}
+  .wz-diagram{justify-self:center;width:min(100%,260px)}
 }
-
-@media (max-width: 720px) {
-  .site-header { flex-direction: column; align-items: stretch; gap: .35rem; padding-block: .55rem; }
-  .brand { justify-content: center; }
-
-  .hero { grid-template-columns: 1fr; text-align: center; gap: 1.4rem; min-height: 0; }
-  .hero p { margin-inline: auto; }
-  .hero__logo { order: -1; width: min(58%, 220px); }
-  .hero .btn { width: 100%; }
-
-  .wizard { border-radius: var(--radius); padding: 1rem; }
-  .wz-grid, .wz-branches { grid-template-columns: 1fr; }
-
-  /* أزرار السابق / التالي تثبت أسفل الشاشة */
-  .wz-nav {
-    position: sticky; bottom: 0; z-index: 5; margin-inline: -1rem; margin-bottom: -1rem; padding: .8rem 1rem calc(.8rem + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
-  }
-  .wz-nav .btn { flex: 1; }
-
-  .site-footer { flex-direction: column; text-align: center; }
+@media (max-width:760px){
+  .site-header{flex-direction:column;align-items:stretch;gap:.3rem;padding:.55rem 1rem .5rem}
+  .site-header nav{overflow-x:auto;gap:.3rem;padding-bottom:.15rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .site-header nav::-webkit-scrollbar{display:none}
+  .site-header nav a{white-space:nowrap;background:rgba(255,255,255,.07);padding:.35rem .85rem;font-size:.9rem}
+  html{scroll-padding-top:6.5rem}
+  .hero{padding:1.6rem 1rem 2.2rem}
+  .hero .btn{width:100%}
+  .section{padding:2rem 1rem}
+  .site-footer{flex-direction:column;text-align:center;align-items:center}
 }
-
-@media (max-width: 480px) {
-  .steps { grid-template-columns: 1fr; }
-  .wz-poslist { grid-template-columns: 1fr 1fr; }
-  .wz-pos { flex-wrap: wrap; padding: .6rem .7rem; font-size: .92rem; }
-  .brand-grid { grid-template-columns: repeat(3, 1fr); }
-  .wz-toolbar > span { margin-inline-start: 0; width: 100%; text-align: center; }
+@media (max-width:640px){
+  .wizard{border-radius:16px;padding:1rem}
+  /* progress becomes 6 slim bars; only the current step shows its title */
+  .wz-steps{gap:.3rem;margin-bottom:1.1rem}
+  .wz-steps li{font-size:0;padding-top:.4rem}
+  .wz-steps li.is-cur{flex:3.4;font-size:.85rem}
+  .wz-grid{grid-template-columns:1fr}
+  .wz-poslist{grid-template-columns:1fr 1fr;gap:.45rem}
+  .wz-pos{padding:.55rem .65rem;gap:.5rem;font-size:.92rem;min-height:50px}
+  .wz-badge{display:none}
+  .wz-branches{grid-template-columns:1fr}
+  .wz-toolbar .btn{flex:1}
+  .wz-toolbar span{flex-basis:100%;margin:0}
+  /* back / next stay reachable at the bottom of the screen */
+  .wz-nav{position:sticky;bottom:0;z-index:5;margin:1.2rem -1rem -1rem;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--silver-200);border-radius:0 0 16px 16px}
+  .wz-nav .btn{flex:1;min-width:0}
+  .wz-done .btn{width:100%}
 }
+@media (max-width:360px){.wz-poslist{grid-template-columns:1fr}}
+@media (hover:none){.brand-tile:hover,.btn--primary:hover{transform:none}}
