@@ -40,7 +40,7 @@ function serviceStep(box, state, cat) {
   }
   box.replaceChildren(h('h3', {}, 'كيف تفضّل الحصول على الخدمة؟'),
     h('div', { class: 'wz-branches' }, radio('branch', 'التوجه إلى فرع DR. KHALED', !cat.branches.length), radio('mobile', 'استبدال متنقل في موقعي (إن توفر)', false), radio('unspecified', 'لم أحدد بعد / لا أعلم', false)),
-    !cat.branches.length ? h('p', { class: 'wz-note' }, 'لا توجد فروع متاحة حاليًا.') : null, area);
+    ...(!cat.branches.length ? [h('p', { class: 'wz-note' }, 'لا توجد فروع متاحة حاليًا.')] : []), area);
   draw();
   return { validate: () => null };   // service method / branch / address are all optional
 }
@@ -115,7 +115,7 @@ export async function initWizard(root, settings = {}) {
     root.replaceChildren(h('p', { class: 'wz-err' }, 'تعذّر تحميل بيانات الطلب.'), h('button', { class: 'btn', type: 'button', onclick: () => initWizard(root, settings) }, 'إعادة المحاولة'));
     return null;
   }
-  const state = newState(); let cur = 0, step = null;
+  const state = newState(); let cur = 0, step = null, started = false;
   const nav = h('ol', { class: 'wz-steps' }), body = h('div', { class: 'wz-body' }), err = h('p', { class: 'wz-err', role: 'alert' });
   const back = h('button', { type: 'button', class: 'btn btn--ghost' }, 'السابق'), next = h('button', { type: 'button', class: 'btn btn--primary' }, 'التالي');
   function go(i) {
@@ -123,7 +123,8 @@ export async function initWizard(root, settings = {}) {
     nav.replaceChildren(...STEPS.map(([k, t], idx) => h('li', { class: idx === cur ? 'is-cur' : idx < cur ? 'is-done' : '', 'aria-current': idx === cur ? 'step' : null }, `${idx + 1}. ${t}`)));
     step = STEPS[cur][2](body, state, cat, go);
     back.hidden = cur === 0; next.hidden = cur === STEPS.length - 1;
-    root.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+    if (started) { root.classList.add('is-active'); root.scrollIntoView?.({ behavior: 'smooth', block: 'start' }); }   // never on first load: the page must open at the top
+    started = true;
   }
   back.addEventListener('click', () => go(cur - 1));
   next.addEventListener('click', () => { const m = step.validate(); if (m) { err.textContent = m; return; } go(cur + 1); });
