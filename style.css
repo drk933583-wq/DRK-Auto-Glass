@@ -13,7 +13,12 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:5rem}
 [hidden]{display:none!important}               /* component display rules must never override the hidden attribute */
 body{font-family:var(--font);color:var(--ink);background:var(--silver-50);line-height:1.75;font-size:1rem;-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto}
+img,svg{max-width:100%;height:auto}
+/* No element may ever make the page wider than the screen (long file names, notes, addresses...).
+   Otherwise phones zoom the whole page out and leave a blank strip on the left. */
+html{overflow-x:hidden}
+body{overflow-x:clip;overflow-wrap:anywhere}
+.wizard *{min-width:0}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--glass);outline-offset:2px;border-radius:6px}
 
