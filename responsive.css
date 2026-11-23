@@ -1,214 +1,38 @@
-
-/* ==========================================
-   DR. KHALED - MOBILE RESPONSIVE FIX
-   ========================================== */
-
-/* Tablets */
-@media (max-width: 768px) {
-
-  /* Header */
-  .site-header {
-    flex-wrap: wrap;
-    gap: .6rem;
-    padding: .8rem 1rem;
-  }
-
-  .brand {
-    font-size: 1.1rem;
-  }
-
-  .site-header nav {
-    width: 100%;
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding-bottom: .2rem;
-    scrollbar-width: none;
-  }
-
-  .site-header nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .site-header nav a {
-    flex-shrink: 0;
-    font-size: .85rem;
-  }
-
-  /* Hero */
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    min-height: auto;
-    text-align: center;
-    padding: 3rem 1.2rem;
-  }
-
-  .hero__text {
-    width: 100%;
-  }
-
-  .hero p {
-    margin-inline: auto;
-  }
-
-  .hero__glass {
-    max-width: 340px;
-  }
-
-  /* Sections */
-  .section {
-    padding: 2rem 1rem;
-  }
-
-  /* Wizard */
-  .wizard {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-
-  .wz-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wz-glass {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .wz-diagram {
-    max-width: 260px;
-    width: 100%;
-    margin-inline: auto;
-  }
-
-  .wz-poslist {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .wz-branches {
-    grid-template-columns: 1fr;
-  }
-
-  .wz-steps {
-    gap: .25rem;
-  }
-
-  .wz-steps li {
-    font-size: .72rem;
-  }
-
-  .wz-nav {
-    gap: .5rem;
-  }
-
-  .wz-nav .btn {
-    min-width: 0;
-    flex: 1;
-  }
-
-  /* Footer */
-  .site-footer {
-    flex-direction: column;
-    text-align: center;
-  }
+/* css/responsive.css (v2) */
+@media (max-width: 1000px) {
+  .glass-picker { grid-template-columns: 1fr; }
 }
 
-/* Small Mobile */
+@media (max-width: 900px) {
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .site-header { flex-direction: column; align-items: stretch; gap: .35rem; padding-block: .55rem; }
+  .brand { text-align: center; }
+
+  .hero { grid-template-columns: 1fr; text-align: center; gap: 1.4rem; min-height: 0; }
+  .hero p { margin-inline: auto; }
+  .hero__logo { order: -1; width: min(58%, 220px); }
+  .hero .btn { width: 100%; }
+
+  .wizard { border-radius: var(--radius); }
+  /* شريط الأزرار يثبت أسفل الشاشة في الموبايل */
+  .wizard__actions, .wizard-actions {
+    position: sticky; bottom: 0; z-index: 5; margin-inline: calc(-1 * clamp(1.1rem, 3vw, 2.2rem));
+    padding: .8rem clamp(1.1rem, 3vw, 2.2rem) calc(.8rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--line);
+  }
+  .wizard__actions .btn, .wizard-actions .btn { flex: 1; }
+
+  .site-footer { flex-direction: column; text-align: center; }
+}
+
 @media (max-width: 480px) {
-
-  html {
-    scroll-padding-top: 7rem;
-  }
-
-  body {
-    font-size: .95rem;
-  }
-
-  .site-header {
-    padding: .7rem .8rem;
-  }
-
-  .brand__logo {
-    height: 29px;
-  }
-
-  .hero {
-    padding: 2.5rem 1rem;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero p {
-    font-size: .95rem;
-  }
-
-  .hero__glass {
-    max-width: 280px;
-  }
-
-  .section>h2 {
-    font-size: 1.4rem;
-  }
-
-  .wz-poslist {
-    grid-template-columns: 1fr;
-  }
-
-  .wz-toolbar {
-    align-items: flex-start;
-  }
-
-  .wz-toolbar span {
-    width: 100%;
-    margin-inline-start: 0;
-  }
-
-  .wz-steps li {
-    font-size: .65rem;
-  }
-
-  .wz-body h3 {
-    font-size: 1.1rem;
-  }
-
-  .btn {
-    padding: .7rem 1rem;
-    font-size: .9rem;
-  }
-
-  .wizard input,
-  .wizard select,
-  .wizard textarea {
-    font-size: 16px;
-  }
-
-  .wz-done {
-    padding: 1.2rem .3rem;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 360px) {
-
-  .wz-steps li {
-    font-size: .58rem;
-  }
-
-  .wz-poslist {
-    grid-template-columns: 1fr;
-  }
-
-  .brand {
-    font-size: 1rem;
-  }
-
-  .wz-nav {
-    flex-direction: column;
-  }
-
-  .wz-nav .btn {
-    width: 100%;
-  }
+  .steps { grid-template-columns: 1fr; }
+  .options, .wizard .options { grid-template-columns: 1fr 1fr; }
+  .glass-cards { grid-template-columns: 1fr 1fr; }
+  .chip > span, button.chip { min-height: 46px; }
+  #brands-grid:not(.muted) { grid-template-columns: repeat(3, 1fr); }
 }
