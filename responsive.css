@@ -1,38 +1,79 @@
-/* css/responsive.css (v2) */
-@media (max-width: 1000px) {
-  .glass-picker { grid-template-columns: 1fr; }
+/* DR. KHALED – MOBILE CSS (v5). Self-contained: loaded AFTER style.css. Simple on purpose: no sticky bars, no blur, no fancy selectors. */
+[hidden]{display:none!important}
+
+/* ---------------- tablets / small laptops ---------------- */
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:1.2rem}
+  .wz-glass{grid-template-columns:minmax(0,1fr)}
+  .wz-diagram{width:min(100%,260px);justify-self:center}
 }
 
-@media (max-width: 900px) {
-  .steps { grid-template-columns: repeat(2, 1fr); }
+/* ---------------- phones ---------------- */
+@media (max-width:640px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:1rem}
+  body{font-size:16px;line-height:1.7;overflow-wrap:break-word}
+  /* safety net: nothing inside the page content can ever make the page wider than the screen */
+  main{overflow-x:hidden}
+
+  /* header: compact, scrolls away with the page (smoothest on phones) */
+  .site-header{position:static;flex-direction:column;align-items:stretch;gap:.5rem;padding:.7rem 1rem;background:#06122A;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+  .brand{font-size:1.15rem;white-space:nowrap}
+  .site-header nav{display:flex;gap:.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .site-header nav::-webkit-scrollbar{display:none}
+  .site-header nav a{flex:0 0 auto;white-space:nowrap;padding:.4rem .9rem;font-size:.9rem;background:rgba(255,255,255,.08);border-radius:999px}
+
+  /* hero: small decoration, then title, text and the start button – all visible on the first screen */
+  .hero{display:flex;flex-direction:column;min-height:0;padding:1.3rem 1rem 1.8rem;gap:0}
+  .hero__glass{order:-1;width:130px;max-width:50%;align-self:flex-start;margin:0 0 .9rem;filter:none}
+  .hero h1{font-size:1.75rem;line-height:1.35;margin:0 0 .7rem}
+  .hero p{font-size:1rem;max-width:none;margin:0 0 1.2rem}
+  .hero .btn{width:100%}
+
+  .section{padding:1.75rem 1rem;overflow:visible}
+  .section>h2{font-size:1.3rem;margin-bottom:1rem}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .steps li{padding:.8rem;font-size:.95rem}
+  .brand-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .brand-tile{min-width:0;min-height:76px;padding:.7rem;text-align:center}
+  #contact-info{padding:1rem}
+  .site-footer{flex-direction:column;align-items:center;text-align:center;padding:1.2rem 1rem;gap:.5rem}
+
+  /* order wizard */
+  .wizard{padding:1rem;border-radius:16px;box-shadow:none}
+  .wz-steps{display:flex;gap:4px;margin:0 0 1rem;padding:0;list-style:none}
+  .wz-steps li{flex:1;min-width:0;padding:0;font-size:0;line-height:0;border-top:4px solid #DFE5EC}
+  .wz-steps li.is-done{border-top-color:#3FB0BE}
+  .wz-steps li.is-cur{flex:3;border-top-color:#0F2A52;font-size:.85rem;line-height:1.5;padding-top:.4rem;white-space:nowrap}
+  .wz-body h3{font-size:1.15rem;margin-bottom:.7rem}
+  .wz-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:.8rem}
+  .wz-field,.wz-grid>*,.wz-glass>*,.wz-card>span,.wz-pos>span{min-width:0}
+  .wizard input[type=text],.wizard input[type=search],.wizard input[type=tel],.wizard input[type=number],.wizard select,.wizard textarea{
+    width:100%;max-width:100%;min-height:48px;font-size:16px}          /* 16px = iPhone does not zoom in on focus */
+  .wz-note,.wz-err,.wz-sum dd,.wz-card small,.wz-card strong{overflow-wrap:break-word;min-width:0}
+
+  .wz-toolbar{gap:.5rem}
+  .wz-toolbar .btn{flex:1;min-height:44px;padding:.4rem .6rem}
+  .wz-toolbar span{flex-basis:100%;margin:0}
+  .wz-glass{display:block}
+  .wz-diagram{width:min(100%,220px);margin:0 auto 1rem}
+  .wz-poslist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+  .wz-pos{min-width:0;min-height:48px;padding:.5rem .6rem;gap:.5rem;font-size:.92rem}
+  .wz-badge{display:none}
+  .wz-branches{display:grid;grid-template-columns:minmax(0,1fr);gap:.5rem}
+  .wz-card{min-width:0}
+  .wz-fs{padding:.7rem .8rem}
+  .wz-opts{gap:.4rem}
+
+  /* back / next: normal buttons at the end of the step (no sticky bar) */
+  .wz-nav{position:static;display:flex;gap:.6rem;margin:1.1rem 0 0;padding:0;border:0;background:none}
+  .wz-nav .btn{flex:1;min-width:0;padding-inline:.5rem}
+  .wz-done .btn{width:100%}
+  .btn,.wz-pos,.wz-card,.brand-tile{transition:none}
 }
 
-@media (max-width: 720px) {
-  .site-header { flex-direction: column; align-items: stretch; gap: .35rem; padding-block: .55rem; }
-  .brand { text-align: center; }
-
-  .hero { grid-template-columns: 1fr; text-align: center; gap: 1.4rem; min-height: 0; }
-  .hero p { margin-inline: auto; }
-  .hero__logo { order: -1; width: min(58%, 220px); }
-  .hero .btn { width: 100%; }
-
-  .wizard { border-radius: var(--radius); }
-  /* شريط الأزرار يثبت أسفل الشاشة في الموبايل */
-  .wizard__actions, .wizard-actions {
-    position: sticky; bottom: 0; z-index: 5; margin-inline: calc(-1 * clamp(1.1rem, 3vw, 2.2rem));
-    padding: .8rem clamp(1.1rem, 3vw, 2.2rem) calc(.8rem + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-    border-top: 1px solid var(--line);
-  }
-  .wizard__actions .btn, .wizard-actions .btn { flex: 1; }
-
-  .site-footer { flex-direction: column; text-align: center; }
-}
-
-@media (max-width: 480px) {
-  .steps { grid-template-columns: 1fr; }
-  .options, .wizard .options { grid-template-columns: 1fr 1fr; }
-  .glass-cards { grid-template-columns: 1fr 1fr; }
-  .chip > span, button.chip { min-height: 46px; }
-  #brands-grid:not(.muted) { grid-template-columns: repeat(3, 1fr); }
+/* very small phones */
+@media (max-width:340px){
+  .wz-poslist{grid-template-columns:minmax(0,1fr)}
+  .steps,.brand-grid{grid-template-columns:minmax(0,1fr)}
 }
