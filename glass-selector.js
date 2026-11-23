@@ -25,7 +25,7 @@ export function specsStep(box, state, cat) {
     if (f.size > 5 * 1024 * 1024) { file.value = ''; return void (msg.textContent = 'حجم الصورة أكبر من 5MB.'); }
     state.photo = f; msg.textContent = 'تم اختيار: ' + f.name; });
   box.replaceChildren(h('h3', {}, 'المواصفات الفنية'), h('p', { class: 'wz-note' }, 'كل المواصفات اختيارية. إذا لم تكن متأكدًا اختر "غير متأكد".'),
-    ...groups, h('label', { class: 'wz-field' }, h('span', {}, 'صورة للزجاج أو السيارة (اختياري). سيصل رابطها لفريق المبيعات داخل رسالة واتساب'), file), msg);
+    ...groups, h('label', { class: 'wz-field' }, h('span', {},  'صورة للزجاج أو السيارة (اختياري). سيصل رابطها لفريق المبيعات داخل رسالة واتساب . مع توضيح مواضع الحساس أو الكاميرا لدى الزجاج الأمامى ( شبلونة الزجاج ) '), file), msg);
   if (state.photo) msg.textContent = 'تم اختيار: ' + state.photo.name;
   return { validate: () => null };
 }
