@@ -23,12 +23,13 @@ const optText = sel => sel.selectedOptions[0]?.textContent || '';
 
 export function vehicleStep(box, state) {
   const v = state.vehicle, thisYear = new Date().getFullYear();
+  const wait = t => h('option', { value: '' }, t);       // visible hint inside a select that is not ready yet
   const msg = h('p', { class: 'wz-note', role: 'status' });
   const brandQ = h('input', { type: 'search', placeholder: 'ابحث عن الماركة…', 'aria-label': 'بحث عن ماركة' });
   const brandSel = h('select', { 'aria-label': 'الماركة' });
   const modelQ = h('input', { type: 'search', placeholder: 'ابحث عن الموديل…', 'aria-label': 'بحث عن موديل' });
-  const modelSel = h('select', { 'aria-label': 'الموديل', disabled: true });
-  const genSel = h('select', { 'aria-label': 'الجيل', disabled: true });
+  const modelSel = h('select', { 'aria-label': 'الموديل', disabled: true }, wait('اختر الماركة أولًا'));
+  const genSel = h('select', { 'aria-label': 'الجيل', disabled: true }, wait('اختر الموديل أولًا'));
   const yearBox = h('div', {});
   const varSel = h('select', { 'aria-label': 'الفئة' });
   const varWrap = field('الفئة / التجهيز (اختياري)', varSel); varWrap.hidden = true;
@@ -38,11 +39,11 @@ export function vehicleStep(box, state) {
   async function refreshBrands() { try { const it = await loadBrands(brandQ.value);
     if (v.brand && !it.some(i => i.id === v.brand.id)) it.unshift({ id: v.brand.id, name: v.brand.label });
     fill(brandSel, it, lbl, v.brand?.id, 'لا أعلم / اختر من القائمة'); msg.textContent = it.length ? '' : 'لا توجد نتائج.'; } catch (e) { fail(e, 'تعذّر تحميل الماركات.'); } }
-  async function refreshModels() { if (!v.brand) { modelSel.disabled = true; return; }
+  async function refreshModels() { if (!v.brand) { modelSel.replaceChildren(wait('اختر الماركة أولًا')); modelSel.disabled = true; return; }
     try { const it = await loadModels(v.brand.id, modelQ.value);
       if (v.model && !it.some(i => i.id === v.model.id)) it.unshift({ id: v.model.id, name: v.model.label });
       fill(modelSel, it, lbl, v.model?.id, 'لا أعلم / اختر من القائمة'); } catch (e) { fail(e, 'تعذّر تحميل الموديلات.'); } }
-  async function refreshGens() { if (!v.model) { genSel.disabled = true; return; }
+  async function refreshGens() { if (!v.model) { genSel.replaceChildren(wait('اختر الموديل أولًا')); genSel.disabled = true; return; }
     try { gens = await loadGens(v.model.id);
       fill(genSel, gens, g => g.name + (g.start_year ? ` (${g.start_year}–${g.end_year ?? 'الآن'})` : ''), v.generation?.id, gens.length ? 'لا أعلم / اختر من القائمة' : 'لا توجد أجيال'); } catch (e) { fail(e, 'تعذّر تحميل الأجيال.'); } }
   async function refreshVariants() { varWrap.hidden = true; if (!v.generation) return;
@@ -64,11 +65,11 @@ export function vehicleStep(box, state) {
   modelQ.addEventListener('input', () => { clearTimeout(t2); t2 = setTimeout(refreshModels, 300); });
   brandSel.addEventListener('change', () => {           // changing brand resets everything below it
     v.brand = brandSel.value ? { id: brandSel.value, label: optText(brandSel) } : null;
-    v.model = v.generation = v.variant = null; v.year = ''; modelQ.value = ''; modelSel.replaceChildren(); genSel.replaceChildren(); genSel.disabled = true;
+    v.model = v.generation = v.variant = null; v.year = ''; modelQ.value = ''; modelSel.replaceChildren(wait('اختر الماركة أولًا')); genSel.replaceChildren(wait('اختر الموديل أولًا')); genSel.disabled = true;
     renderYear(); varWrap.hidden = true; refreshModels(); });
   modelSel.addEventListener('change', () => {            // changing model resets generation + year
     v.model = modelSel.value ? { id: modelSel.value, label: optText(modelSel) } : null;
-    v.generation = v.variant = null; v.year = ''; genSel.replaceChildren(); renderYear(); varWrap.hidden = true; refreshGens(); });
+    v.generation = v.variant = null; v.year = ''; genSel.replaceChildren(wait('اختر الموديل أولًا')); genSel.disabled = true; renderYear(); varWrap.hidden = true; refreshGens(); });
   genSel.addEventListener('change', () => {
     const g = gens.find(x => x.id === genSel.value);
     v.generation = g ? { id: g.id, label: g.name, start: g.start_year, end: g.end_year } : null; v.variant = null; v.year = '';
