@@ -30,9 +30,9 @@
   .wz-toolbar .btn{flex:1}
   .wz-toolbar span{flex-basis:100%;margin:0}
   /* back / next stay reachable at the bottom of the screen */
-  .wz-nav{position:sticky;bottom:0;z-index:5;margin:1.2rem -1rem -1rem;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
-    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--silver-200);border-radius:0 0 16px 16px}
   .wz-nav .btn{flex:1;min-width:0}
+  .wizard.is-active .wz-nav{position:sticky;bottom:0;z-index:5;margin:1.2rem -1rem -1rem;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--silver-200);border-radius:0 0 16px 16px}
   .wz-done .btn{width:100%}
 }
 @media (max-width:360px){.wz-poslist{grid-template-columns:1fr}}
