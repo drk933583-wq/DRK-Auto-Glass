@@ -1,4 +1,4 @@
-/* DR. KHALED – MOBILE CSS (v5). Self-contained: loaded AFTER style.css. Simple on purpose: no sticky bars, no blur, no fancy selectors. */
+/* DR. KHALED – MOBILE CSS (v6). Self-contained: loaded AFTER style.css. Simple on purpose: no sticky bars, no blur, no fancy selectors. */
 [hidden]{display:none!important}
 
 /* ---------------- tablets / small laptops ---------------- */
@@ -8,22 +8,36 @@
   .wz-diagram{width:min(100%,260px);justify-self:center}
 }
 
+/* ---------------- header + menu button (phones and small tablets) ---------------- */
+@media (max-width:760px){
+  html{scroll-padding-top:5rem}
+  .site-header{position:sticky;top:0;z-index:50;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:.75rem;
+    padding:.55rem 1rem;background:#06122A;overflow:visible;overflow-x:clip;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .brand{flex:1 1 auto;min-width:0;font-size:1.1rem;white-space:normal;line-height:1.35;max-height:2.7em;overflow:hidden}   /* a very long name shows 2 lines at most, so the header stays slim */
+  .brand{align-items:flex-start}      /* if a name is clipped, the FIRST lines stay visible */
+  .brand__logo{height:30px;max-width:36%;margin-block:auto}
+  .menu-btn{display:inline-flex;flex:none;align-items:center;gap:.55rem;min-height:42px;padding:.35rem .9rem;border:1.5px solid rgba(255,255,255,.3);
+    border-radius:10px;background:transparent;color:#fff;font:inherit;font-size:.95rem;cursor:pointer}
+  .menu-btn__bars,.menu-btn__bars::before,.menu-btn__bars::after{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,background .2s}
+  .menu-btn__bars{position:relative}
+  .menu-btn__bars::before,.menu-btn__bars::after{content:"";position:absolute;inset-inline-start:0}
+  .menu-btn__bars::before{top:-6px}.menu-btn__bars::after{top:6px}
+  .site-header.is-open .menu-btn__bars{background:transparent}
+  .site-header.is-open .menu-btn__bars::before{top:0;transform:rotate(45deg)}
+  .site-header.is-open .menu-btn__bars::after{top:0;transform:rotate(-45deg)}
+  .site-header nav{display:none;position:absolute;top:100%;inset-inline:0;flex-direction:column;gap:0;padding:.2rem 1rem .8rem;
+    background:#06122A;border-top:1px solid rgba(255,255,255,.1);box-shadow:0 16px 28px rgba(0,0,0,.35)}
+  .site-header.is-open nav{display:flex;animation:stepIn .2s ease both}
+  .site-header nav a{padding:.9rem .3rem;border-radius:0;background:none;font-size:1.02rem;white-space:normal;border-bottom:1px solid rgba(255,255,255,.08)}
+  .site-header nav a:last-child{border-bottom:0}
+}
+
 /* ---------------- phones ---------------- */
 @media (max-width:640px){
-  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:1rem}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body{font-size:16px;line-height:1.7;overflow-wrap:break-word}
   /* safety net: nothing inside the page content can ever make the page wider than the screen */
   main{overflow-x:hidden}
-
-  /* header: compact, scrolls away with the page (smoothest on phones) */
-  .site-header{position:static;flex-direction:column;align-items:stretch;gap:.5rem;padding:.7rem 1rem;background:#06122A;
-    -webkit-backdrop-filter:none;backdrop-filter:none}
-  .brand{font-size:1.1rem;white-space:normal;line-height:1.4}
-  .brand__logo{height:30px;max-width:36%}
-  .site-header,.site-footer{overflow-x:hidden}
-  .site-header nav{display:flex;gap:.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .site-header nav::-webkit-scrollbar{display:none}
-  .site-header nav a{flex:0 0 auto;white-space:nowrap;padding:.4rem .9rem;font-size:.9rem;background:rgba(255,255,255,.08);border-radius:999px}
 
   /* hero: small decoration, then title, text and the start button – all visible on the first screen */
   .hero{display:flex;flex-direction:column;min-height:0;padding:1.3rem 1rem 1.8rem;gap:0}
@@ -59,8 +73,8 @@
   .wz-toolbar span{flex-basis:100%;margin:0}
   .wz-glass{display:block}
   .wz-diagram{width:min(100%,220px);margin:0 auto 1rem}
-  .wz-poslist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
-  .wz-pos{min-width:0;min-height:48px;padding:.5rem .6rem;gap:.5rem;font-size:.92rem}
+  .wz-poslist{display:grid;grid-template-columns:minmax(0,1fr);gap:.45rem}   /* glass options: one under another */
+  .wz-pos{min-width:0;min-height:50px;padding:.55rem .8rem;gap:.7rem;font-size:1rem}
   .wz-badge{display:none}
   .wz-branches{display:grid;grid-template-columns:minmax(0,1fr);gap:.5rem}
   .wz-card{min-width:0}
@@ -71,11 +85,9 @@
   .wz-nav{position:static;display:flex;gap:.6rem;margin:1.1rem 0 0;padding:0;border:0;background:none}
   .wz-nav .btn{flex:1;min-width:0;padding-inline:.5rem}
   .wz-done .btn{width:100%}
-  .btn,.wz-pos,.wz-card,.brand-tile{transition:none}
 }
 
 /* very small phones */
 @media (max-width:340px){
-  .wz-poslist{grid-template-columns:minmax(0,1fr)}
   .steps,.brand-grid{grid-template-columns:minmax(0,1fr)}
 }
