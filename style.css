@@ -1,5 +1,4 @@
-
-/* DR. KHALED – public site CSS (v5) */
+/* DR. KHALED – public site CSS (v6) */
 /* DR. KHALED – public site. Mobile-first tokens; layout tweaks live in responsive.css */
 :root{
   --navy-950:#06122A; --navy-900:#0A1B3A; --navy-800:#0F2A52; --navy-600:#1E4278;
@@ -24,7 +23,8 @@ body{overflow-wrap:break-word}
 .section{overflow-x:clip}
 .site-header nav a{white-space:nowrap}
 /* header, content and footer each clip sideways overflow, so no single element (logo, long name, long email) can widen the page */
-.site-header,.site-footer,main{overflow-x:hidden}
+.site-header{overflow-x:clip}
+.site-footer,main{overflow-x:hidden}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--glass);outline-offset:2px;border-radius:6px}
 
@@ -41,6 +41,9 @@ a{color:inherit}
 .site-header nav{display:flex;gap:.25rem}
 .site-header nav a{padding:.45rem .85rem;border-radius:999px;text-decoration:none;color:var(--silver-200);font-size:.95rem;transition:background .15s,color .15s}
 .site-header nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* mobile menu button: hidden on wide screens, shown by responsive.css */
+.menu-btn{display:none}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:2.5rem;min-height:min(78vh,640px);
@@ -149,5 +152,10 @@ a{color:inherit}
 .wz-done{display:grid;gap:.9rem;justify-items:center;text-align:center;padding:1.5rem .5rem}
 .wz-done::before{content:"✓";display:grid;place-items:center;width:68px;height:68px;border-radius:50%;background:var(--glass-50);color:var(--ok);font-size:2rem;font-weight:700;border:2px solid var(--glass)}
 .wz-done h3{margin:0}.wz-done strong{font-size:1.25rem;letter-spacing:.04em;color:var(--navy-800)}
+
+/* gentle motion so the flow feels alive: each step fades in, taps give feedback */
+@keyframes stepIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wz-body>*{animation:stepIn .28s ease both}
+.btn:active,.wz-pos:active,.wz-card:active,.brand-tile:active{transform:scale(.985)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
