@@ -18,7 +18,9 @@
   /* header: compact, scrolls away with the page (smoothest on phones) */
   .site-header{position:static;flex-direction:column;align-items:stretch;gap:.5rem;padding:.7rem 1rem;background:#06122A;
     -webkit-backdrop-filter:none;backdrop-filter:none}
-  .brand{font-size:1.15rem;white-space:nowrap}
+  .brand{font-size:1.1rem;white-space:normal;line-height:1.4}
+  .brand__logo{height:30px;max-width:36%}
+  .site-header,.site-footer{overflow-x:hidden}
   .site-header nav{display:flex;gap:.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .site-header nav::-webkit-scrollbar{display:none}
   .site-header nav a{flex:0 0 auto;white-space:nowrap;padding:.4rem .9rem;font-size:.9rem;background:rgba(255,255,255,.08);border-radius:999px}
