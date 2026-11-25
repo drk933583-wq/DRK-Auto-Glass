@@ -186,3 +186,28 @@ a{color:inherit}
         max-width: 36px;
     }
 }
+/* DRK Circular Logo */
+.hero__logo {
+    border-radius: 50%;
+    clip-path: circle(50%);
+    object-fit: cover;
+    animation: heroLogoSpin 40s linear infinite;
+}
+
+/* Smooth Logo Rotation */
+@keyframes heroLogoSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .hero__logo {
+        animation: none;
+    }
+}
