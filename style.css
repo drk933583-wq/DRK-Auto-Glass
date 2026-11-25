@@ -38,14 +38,14 @@ a{color:inherit}
 .brand{display:inline-flex;align-items:center;gap:.6rem;min-width:0;max-width:100%;font-weight:700;font-size:1.25rem;letter-spacing:.05em;text-decoration:none;color:#fff}
 
 .brand__logo {
-    width: 44px;
-    height: 44px;
-    max-width: 44px;
-    object-fit: cover;
-    border-radius: 50%;
+    width: 44px !important;
+    height: 44px !important;
+    max-width: 44px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    overflow: hidden;
     display: block;
     flex: none;
-
     animation: logoSpin 40s linear infinite;
 }
 
