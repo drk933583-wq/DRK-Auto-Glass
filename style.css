@@ -93,15 +93,15 @@ a{color:inherit}
 }
 
 .brand__logo{
-  width:44px!important;
-  height:44px!important;
-  max-width:44px!important;
+  width:60px!important;
+  height:60px!important;
+  max-width:60px!important;
   object-fit:cover!important;
   border-radius:50%!important;
   overflow:hidden;
   display:block;
   flex:none;
-  animation:logoSpin 40s linear infinite
+  animation:logoSpin 30s linear infinite
 }
 
 .site-header nav{
@@ -864,9 +864,9 @@ a{color:inherit}
 @media (max-width:768px){
 
   .brand__logo{
-    width:36px;
-    height:36px;
-    max-width:36px
+    width:44px;
+    height:44px;
+    max-width:44px
   }
 
   .hero__logo{
@@ -878,8 +878,8 @@ a{color:inherit}
 @media (max-width:400px){
 
   .hero__logo{
-    width:100px;
-    height:100px
+    width:150px;
+    height:150px
   }
 }
 
