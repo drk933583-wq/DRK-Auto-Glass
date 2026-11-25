@@ -45,9 +45,8 @@ a{color:inherit}
     object-position: center;
     display: block;
     flex: none;
-    mix-blend-mode: screen;
+    mix-blend-mode: lighten;
 }
-
 @media (max-width: 768px) {
     .brand__logo {
         height: 36px;
