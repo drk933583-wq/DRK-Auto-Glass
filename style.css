@@ -38,20 +38,15 @@ a{color:inherit}
 .brand{display:inline-flex;align-items:center;gap:.6rem;min-width:0;max-width:100%;font-weight:700;font-size:1.25rem;letter-spacing:.05em;text-decoration:none;color:#fff}
 
 .brand__logo {
-    height: 42px;
-    width: auto;
-    max-width: min(55vw, 220px);
-    object-fit: contain;
-    object-position: center;
+    width: 44px;
+    height: 44px;
+    max-width: 44px;
+    object-fit: cover;
+    border-radius: 50%;
     display: block;
     flex: none;
-    mix-blend-mode: lighten;
-}
-@media (max-width: 768px) {
-    .brand__logo {
-        height: 36px;
-        max-width: 48vw;
-    }
+
+    animation: logoSpin 40s linear infinite;
 }
 
 .site-header nav{display:flex;gap:.25rem}
@@ -175,3 +170,19 @@ a{color:inherit}
 .btn:active,.wz-pos:active,.wz-card:active,.brand-tile:active{transform:scale(.985)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@keyframes logoSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+@media (max-width: 768px) {
+    .brand__logo {
+        width: 36px;
+        height: 36px;
+        max-width: 36px;
+    }
+}
