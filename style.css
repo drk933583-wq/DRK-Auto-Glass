@@ -36,7 +36,25 @@ a{color:inherit}
   padding:.75rem clamp(1rem,5vw,3rem);background:rgba(6,18,42,.94);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);
   color:var(--white);border-bottom:1px solid rgba(255,255,255,.08)}
 .brand{display:inline-flex;align-items:center;gap:.6rem;min-width:0;max-width:100%;font-weight:700;font-size:1.25rem;letter-spacing:.05em;text-decoration:none;color:#fff}
-.brand__logo{height:34px;width:auto;max-width:40vw;object-fit:contain;flex:none}   /* any logo shape fits; a wide logo can never widen the page */
+
+.brand__logo {
+    height: 42px;
+    width: auto;
+    max-width: min(55vw, 220px);
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    flex: none;
+    mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+    .brand__logo {
+        height: 36px;
+        max-width: 48vw;
+    }
+}
+
 .site-header nav{display:flex;gap:.25rem}
 .site-header nav a{padding:.45rem .85rem;border-radius:999px;text-decoration:none;color:var(--silver-200);font-size:.95rem;transition:background .15s,color .15s}
 .site-header nav a:hover{background:rgba(255,255,255,.1);color:#fff}
