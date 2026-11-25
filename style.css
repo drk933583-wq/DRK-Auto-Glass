@@ -158,19 +158,3 @@ a{color:inherit}
 .btn:active,.wz-pos:active,.wz-card:active,.brand-tile:active{transform:scale(.985)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-.main-logo {
-    display: block;
-    width: min(100%, 420px);
-    height: auto;
-    object-fit: contain;
-    margin: 0 auto;
-    background: transparent;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .main-logo {
-        width: 85%;
-        max-width: 300px;
-    }
-}
