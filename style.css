@@ -1,5 +1,4 @@
-/* DR. KHALED – public site CSS (v6) */
-/* DR. KHALED – public site. Mobile-first tokens; layout tweaks live in responsive.css */
+
 :root{
   --navy-950:#06122A; --navy-900:#0A1B3A; --navy-800:#0F2A52; --navy-600:#1E4278;
   --silver-50:#F7F9FB; --silver-100:#EEF2F6; --silver-200:#DFE5EC; --silver-300:#C3CDD9; --silver-400:#9AA8BA;
@@ -159,3 +158,19 @@ a{color:inherit}
 .btn:active,.wz-pos:active,.wz-card:active,.brand-tile:active{transform:scale(.985)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.main-logo {
+    display: block;
+    width: min(100%, 420px);
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    background: transparent;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .main-logo {
+        width: 85%;
+        max-width: 300px;
+    }
+}
