@@ -200,7 +200,7 @@ a{color:inherit}
   clip-path:circle(50%);
   display:block;
   margin-inline:auto;
-  animation:heroLogoSpin 20s linear infinite
+  animation:heroLogoSpin 10s linear infinite
 }
 
 .glass-shape{
