@@ -378,38 +378,53 @@ a{color:inherit}
 
 /* Header Transparent Logo */
 
+
+/* ---------- Header Brand Logo ---------- */
+
 .brand {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     text-decoration: none;
-    transition: transform .2s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transition: opacity .2s ease;
 }
 
 .brand:hover {
-    transform: scale(1.04);
+    opacity: .88;
+}
+
+.brand:focus-visible {
+    outline: 2px solid var(--glass);
+    outline-offset: 5px;
+    border-radius: 6px;
 }
 
 .brand__logo {
+    display: block;
     width: 175px;
-    height: 75px;
+    height: 65px;
     max-width: 40vw;
     object-fit: contain;
     object-position: center;
-    display: block;
+    background: transparent;
     border: none;
     border-radius: 0;
-    background: transparent;
     clip-path: none;
+    box-shadow: none;
     animation: none;
+    transform: none;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
     .brand__logo {
         width: 135px;
-        height: 60px;
+        height: 55px;
         max-width: 38vw;
     }
 }
@@ -418,7 +433,7 @@ a{color:inherit}
 @media (max-width: 400px) {
     .brand__logo {
         width: 115px;
-        height: 52px;
+        height: 48px;
     }
 }
 
