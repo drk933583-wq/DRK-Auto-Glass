@@ -979,3 +979,13 @@ a{color:inherit}
 @media (max-height:500px) and (orientation:landscape){
   .hero__logo{--logo:96px}
 }
+/* Force Header Logo to Keep Original Shape */
+
+.site-header .brand__logo {
+    border-radius: 0 !important;
+    clip-path: none !important;
+    overflow: visible !important;
+    object-fit: contain !important;
+    animation: none !important;
+    transform: none !important;
+}
