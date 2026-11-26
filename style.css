@@ -92,12 +92,13 @@ a{color:inherit}
   color:#fff
 }
 
-.brand__logo{
-  width:200px!important;
-  height:200px!important;
-  max-width:200px!important;
-  object-fit:cover!important;
-  border-radius:50%!important;
+.site-header .brand__logo{
+  width:44px;
+  height:44px;
+  max-width:44px;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  border-radius:50%;
   overflow:hidden;
   display:block;
   flex:none;
@@ -189,8 +190,9 @@ a{color:inherit}
 /* Hero circular logo - Responsive */
 
 .hero__logo{
-  width:clamp(200px,13vw,200px);
-  height:clamp(200px,13vw,200px);
+  --logo:clamp(160px,22vw,300px);
+  width:var(--logo);
+  height:auto;
   max-width:100%;
   aspect-ratio:1 / 1;
   object-fit:cover;
@@ -858,40 +860,20 @@ a{color:inherit}
   from{transform:rotate(0deg)}
   to{transform:rotate(360deg)}
 }
-
-/* ---------- responsive ---------- */
-
 @media (max-width:900px){
-
-  .brand__logo{
-    width:80px;
-    height:80px;
-    max-width:80px
-  }
-
-  .hero__logo{
-    width:clamp(150px,27vw,200px);
-    height:clamp(150px,27vw,200px)
-  }
+  .hero__logo{--logo:clamp(150px,30vw,220px);order:-1;margin-bottom:1rem}
+  .hero__glass{order:-1}
 }
-
-@media (max-width:600px){
-
-  .hero__logo{
-    width:200px;
-    height:200px
-  }
+@media (max-width:768px){
+  .site-header .brand__logo{width:38px;height:38px;max-width:38px}
 }
-
-/* ---------- reduced motion ---------- */
-
-@media (prefers-reduced-motion:reduce){
-
-  *,
-  *::before,
-  *::after{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important
-  }
+@media (max-width:640px){
+  .hero__logo{--logo:clamp(120px,36vw,170px)}
+  .hero__glass:has(> .hero__logo){width:auto;max-width:none;align-self:center}
+}
+@media (max-width:400px){
+  .site-header .brand__logo{width:34px;height:34px;max-width:34px}
+}
+@media (max-height:500px) and (orientation:landscape){
+  .hero__logo{--logo:96px}
 }
