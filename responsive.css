@@ -100,3 +100,35 @@
 @media (max-width:340px){
   .steps,.brand-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* Final Header Logo Size Override */
+
+.site-header .brand__logo {
+    width: 210px !important;
+    height: 85px !important;
+    max-width: 210px !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+    clip-path: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .site-header .brand__logo {
+        width: 155px !important;
+        height: 65px !important;
+        max-width: 155px !important;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+    .site-header .brand__logo {
+        width: 130px !important;
+        height: 55px !important;
+        max-width: 130px !important;
+    }
+}
+
