@@ -376,10 +376,50 @@ a{color:inherit}
   box-shadow:var(--shadow)
 }
 
-.brand-tile img{
-  height:40px;
-  width:auto;
-  object-fit:contain
+/* Header Transparent Logo */
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: transform .2s ease;
+}
+
+.brand:hover {
+    transform: scale(1.04);
+}
+
+.brand__logo {
+    width: 175px;
+    height: 75px;
+    max-width: 40vw;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    clip-path: none;
+    animation: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .brand__logo {
+        width: 135px;
+        height: 60px;
+        max-width: 38vw;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+    .brand__logo {
+        width: 115px;
+        height: 52px;
+    }
 }
 
 #contact-info{
