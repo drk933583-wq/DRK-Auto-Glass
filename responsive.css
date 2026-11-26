@@ -86,7 +86,16 @@
   .wz-nav .btn{flex:1;min-width:0;padding-inline:.5rem}
   .wz-done .btn{width:100%}
 }
+/* Stop Header Logo Rotation */
+.brand__logo {
+    animation: none !important;
+    transform: none !important;
+}
 
+.brand:hover .brand__logo {
+    animation: none !important;
+    transform: none !important;
+}
 /* very small phones */
 @media (max-width:340px){
   .steps,.brand-grid{grid-template-columns:minmax(0,1fr)}
