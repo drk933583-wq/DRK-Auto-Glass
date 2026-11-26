@@ -79,18 +79,65 @@ a{color:inherit}
   border-bottom:1px solid rgba(255,255,255,.08)
 }
 
-.brand{
-  display:inline-flex;
-  align-items:center;
-  gap:.6rem;
-  min-width:0;
-  max-width:100%;
-  font-weight:700;
-  font-size:1.25rem;
-  letter-spacing:.05em;
-  text-decoration:none;
-  color:#fff
+
+/* ---------- Header Brand Logo ---------- */
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transition: opacity .2s ease;
 }
+
+.brand:hover {
+    opacity: .88;
+}
+
+.brand:focus-visible {
+    outline: 2px solid var(--glass);
+    outline-offset: 5px;
+    border-radius: 6px;
+}
+
+.brand__logo {
+    display: block;
+    width: 175px;
+    height: 65px;
+    max-width: 40vw;
+    object-fit: contain;
+    object-position: center;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    clip-path: none;
+    box-shadow: none;
+    animation: none;
+    transform: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .brand__logo {
+        width: 135px;
+        height: 55px;
+        max-width: 38vw;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+    .brand__logo {
+        width: 115px;
+        height: 48px;
+    }
+}
+
 
 .site-header .brand__logo{
   width:44px;
